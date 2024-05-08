@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:00:21 by erho              #+#    #+#             */
-/*   Updated: 2024/04/16 22:32:16 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/05/08 23:36:50 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "../include/cub3d.h"
 
-static void	make_word(char *s1, char const *s2, int n)
+void	make_word(char *s1, char const *s2, int n)
 {
 	int	i;
 
@@ -25,17 +25,23 @@ static void	make_word(char *s1, char const *s2, int n)
 	s1[i] = '\0';
 }
 
-static int	count_word(char const *s, char c)
+int	count_word(char const *s, char c)
 {
 	int	i;
 	int	cnt;
+	int	next_line;
 
 	i = 0;
 	cnt = 0;
 	while (s[i])
 	{
-		while (s[i] && s[i] == c)
-			i++;
+		next_line = 0;
+		while (s[i + next_line] && s[i + next_line] == c)
+			next_line++;
+		if (next_line >= 2)
+			print_error(ERROR_INVALID_MAP);
+		else
+			i += next_line;
 		if (s[i])
 			cnt++;
 		while (s[i] && s[i] != c)
@@ -44,7 +50,7 @@ static int	count_word(char const *s, char c)
 	return (cnt);
 }
 
-static char	**ft_insert(char const *s, char **res, char c)
+char	**ft_insert(char const *s, char **res, char c)
 {
 	int	i;
 	int	word;
@@ -71,7 +77,7 @@ static char	**ft_insert(char const *s, char **res, char c)
 	return (res);
 }
 
-char	**ft_split(char const *s, char c)
+char	**split_map(char const *s, char c)
 {
 	int		cnt;
 	char	**res;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
+#    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/05/03 16:33:36 by sewopark         ###   ########.fr        #
+#    Updated: 2024/05/09 05:20:59 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
-SRCS	= main.c
+PARSE	= check_file.c check_info.c extract_data.c length.c main.c \
+		print_error.c set_play.c split_map.c
+SRCS	= $(addprefix parse/, $(PARSE))
 OBJS	= $(SRCS:%.c=%.o)
 LIBFT	= ./libft/libft.a
 MLX_PATH	= minilibx/

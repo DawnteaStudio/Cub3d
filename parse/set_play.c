@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdisit.c                                       :+:      :+:    :+:   */
+/*   set_play.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/05 16:20:56 by erho              #+#    #+#             */
-/*   Updated: 2024/04/16 01:23:18 by erho             ###   ########.fr       */
+/*   Created: 2024/05/08 22:43:32 by erho              #+#    #+#             */
+/*   Updated: 2024/05/09 05:30:04 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include "../include/cub3d.h"
+
+void	initial_play(t_play *play)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		play->images[i].path = NULL;
+		i++;
+	}
+	ft_memset(&play->map.ceiling, -1, sizeof(int *));
+	ft_memset(&play->map.floor, -1, sizeof(int *));
 }
