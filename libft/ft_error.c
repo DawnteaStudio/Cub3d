@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 19:16:28 by erho              #+#    #+#             */
-/*   Updated: 2024/01/18 19:25:55 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/08 20:24:42 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_error(int error_no)
 	}
 	else
 	{
-		ft_putstr_fd("writing failed\n", 2);
+		ft_putstr_fd("overflow occured\n", 2);
 		exit(1);
 	}
 }
