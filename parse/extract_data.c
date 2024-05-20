@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 00:13:08 by erho              #+#    #+#             */
-/*   Updated: 2024/05/09 06:02:40 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/20 16:33:19 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ void	extract_path(t_play *p, size_t *idx, int image_type)
 	if (p->images[image_type].path != NULL)
 		print_error(ERROR_INVALID_INFO);
 	start = *idx;
-	while (*idx < p->origin_len && p->origin[*idx] == ' '
-		&& p->origin[*idx] != '\n')
+	while (*idx < p->origin_len && p->origin[*idx] == ' ')
 		(*idx)++;
 	if (*idx == start)
 		print_error(ERROR_INVALID_INFO);
 	start = *idx;
-	while (*idx < p->origin_len && p->origin[*idx] != '\n')
+	while (*idx < p->origin_len && p->origin[*idx] != ' '
+		&& p->origin[*idx] != '\n')
 		(*idx)++;
 	path_len = *idx - start;
 	if (path_len < 4)
 		print_error(ERROR_INVALID_INFO);
 	p->images[image_type].path = ft_substr(p->origin, start, *idx - start);
 	tmp = p->images[image_type].path;
-	if (tmp[path_len - 1] != 'm' || tmp[path_len - 2] != 'p'
-		|| tmp[path_len - 3] != 'x' || tmp[path_len - 4] != '.')
+	if (ft_strcmp(&tmp[path_len - 4], ".xpm") != 0)
 		print_error(ERROR_INVALID_INFO);
+	printf("path: %s\n", p->images[image_type].path);
 }
 
 int	check_number(char *tmp)
@@ -66,7 +66,7 @@ int	find_number(t_play *p, size_t *idx)
 
 	start = *idx;
 	while (*idx < p->origin_len && p->origin[*idx] != '\n'
-			&& p->origin[*idx] != ',')
+			&& p->origin[*idx] != ',' && p->origin[*idx] != ' ')
 		(*idx)++;
 	tmp = ft_substr(p->origin, start, *idx - start);
 	res = check_number(tmp);
@@ -87,7 +87,8 @@ void	extract_color(t_play *p, int *arr, size_t *idx)
 		(*idx)++;
 	if (*idx == start)
 		print_error(ERROR_INVALID_INFO);
-	while (*idx < p->origin_len && p->origin[*idx] != '\n')
+	while (*idx < p->origin_len && p->origin[*idx] != ' '
+		&& p->origin[*idx] != '\n')
 	{
 		if (arr_idx == 3)
 			print_error(ERROR_INVALID_INFO);
@@ -97,4 +98,5 @@ void	extract_color(t_play *p, int *arr, size_t *idx)
 	}
 	if (arr_idx < 3)
 		print_error(ERROR_INVALID_INFO);
+	printf("color: %d, %d, %d\n", arr[0], arr[1], arr[2]);
 }

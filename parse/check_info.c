@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:29:24 by erho              #+#    #+#             */
-/*   Updated: 2024/05/09 06:03:41 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/20 16:52:32 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,29 @@ void	check_id(char *id, t_play *p, size_t *idx)
 		print_error(ERROR_INVALID_INFO);
 }
 
+int	check_dup_path(t_play *p)
+{
+	int	idx;
+	int	tmp;
+
+	idx = 0;
+	while (idx < 4)
+	{
+		if (p->images[idx].path == NULL)
+			return (FALSE);
+		tmp = idx + 1;
+		while (tmp < 4)
+		{
+			if (p->images[tmp].path == NULL
+				|| ft_strcmp(p->images[idx].path, p->images[tmp].path))
+				return (FALSE);
+			tmp++;
+		}
+		idx++;
+	}
+	return (TRUE);
+}
+
 void	is_valid_sequence(t_play *p)
 {
 	int	i;
@@ -45,24 +68,31 @@ void	is_valid_sequence(t_play *p)
 		print_error(ERROR_INVALID_INFO);
 }
 
-void	is_valid_character(size_t diff, t_play *p, size_t *idx)
+void	is_valid_character(size_t start, t_play *p, size_t *idx)
 {
-	size_t	start;
+	size_t	key_start;
 	char	*id;
 
-	if (diff == 0 && ft_isalpha(p->origin[*idx]))
+	if (ft_isalpha(p->origin[*idx]))
 	{
-		start = *idx;
+		key_start = *idx;
 		while (*idx < p->origin_len && ft_isalpha(p->origin[*idx]))
 			(*idx)++;
-		if (*idx - start >= 3)
+		if (*idx - key_start >= 3)
 			print_error(ERROR_INVALID_INFO);
-		id = ft_substr(p->origin, start, *idx - start);
+		id = ft_substr(p->origin, key_start, *idx - key_start);
+		printf("id: %s\n", id);
 		check_id(id, p, idx);
+		while (*idx < p->origin_len && p->origin[*idx] == ' ')
+			(*idx)++;
+		if (*idx < p->origin_len && p->origin[*idx] != '\n')
+			print_error(ERROR_INVALID_INFO);
 	}
-	else if (diff != 0 && ft_isdigit(p->origin[*idx]))
+	else if (ft_isdigit(p->origin[*idx]))
 	{
+		(void)start;
 		is_valid_sequence(p);
+		p->check_parsing = TRUE;
 		// p->map.split_map = split_map(&(p->origin[*idx - diff]), '\n');
 	}
 }
@@ -74,8 +104,6 @@ void	is_valid_info(t_play *p)
 
 	idx = 0;
 	p->origin_len = ft_strlen(p->origin);
-	if (p->origin[0] == '\n' || p->origin[p->origin_len - 1] == '\n')
-		print_error(ERROR_INVALID_INFO);
 	while (idx < p->origin_len)
 	{
 		while (idx < p->origin_len && p->origin[idx] == '\n')
@@ -83,7 +111,11 @@ void	is_valid_info(t_play *p)
 		start = idx;
 		while (idx < p->origin_len && p->origin[idx] == ' ')
 			idx++;
-		is_valid_character(idx - start, p, &idx);
+		if (idx < p->origin_len && p->origin[idx] == '\n')
+			continue ;
+		is_valid_character(start, p, &idx);
 		idx++;
 	}
+	if (p->check_parsing == FALSE || check_dup_path(p) == FALSE)
+		print_error(ERROR_INVALID_INFO);
 }

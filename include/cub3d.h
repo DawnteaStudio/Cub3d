@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/09 05:29:08 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/20 16:53:13 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_play {
 	char	*origin;
 	size_t	origin_len;
 	t_image	images[4];
+	int		check_parsing;
 	int		y;
 	int		x;
 	t_map	map;
