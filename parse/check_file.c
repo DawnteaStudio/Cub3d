@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 21:27:17 by erho              #+#    #+#             */
-/*   Updated: 2024/05/09 05:23:33 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/20 22:21:38 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,8 @@ int	is_valid_file_name(char *file)
 	len = ft_strlen(file);
 	if (len < 4)
 		return (ERROR_FILE_NAME);
-	if (file[len - 4] != '.')
-		return (ERROR_FILE_NAME);
-	if (file[len - 3] != 'c')
-		return (ERROR_FILE_NAME);
-	if (file[len - 2] != 'u')
-		return (ERROR_FILE_NAME);
-	if (file[len - 1] != 'b')
-		return (ERROR_FILE_NAME);
+	if (ft_strcmp(&file[len - 4], ".cub") != 0)
+		print_error(ERROR_INVALID_INFO);
 	return (VALID);
 }
 
