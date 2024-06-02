@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/20 16:53:13 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/02 21:36:55 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_image {
 
 typedef struct s_map
 {
-	char	**split_map;
+	char	**field;
 	int		start_y;
 	int		start_x;
 	int		direction;
@@ -80,14 +80,23 @@ typedef struct s_map
 typedef struct s_play {
 	void	*mlx;
 	void	*win;
-	char	*origin;
-	size_t	origin_len;
+	char	**origin;
 	t_image	images[4];
 	int		check_parsing;
-	int		y;
-	int		x;
+	size_t	height;
 	t_map	map;
 }	t_play;
+
+typedef struct s_node {
+	size_t			y;
+	size_t			x;
+	struct s_node	*next;
+}	t_node;
+
+typedef struct s_queue {
+	t_node	*front;
+	t_node	*back;
+}	t_queue;
 
 /* parse */
 // length
@@ -99,17 +108,29 @@ void	is_valid_file(char *file, int fd);
 // check_info
 void	is_valid_info(t_play *p);
 
+// check_map
+void	is_valid_map(t_map *m);
+
+// bfs
+void	bfs(t_map *m, size_t start_y, size_t start_x, int **visited);
+
 // set_play
 void	initial_play(t_play *play);
 
-// split_map
-char	**split_map(char const *s, char c);
-
 // extract_data
-void	extract_path(t_play *p, size_t *idx, int image_type);
-void	extract_color(t_play *p, int *arr, size_t *idx);
+void	extract_path(t_play *p, size_t idx, size_t *width, int image_type);
+void	extract_color(t_play *p, int *arr, size_t idx, size_t *width);
 
 // print_error
 void	print_error(int error_no);
+
+// queue
+void	q_pop(t_queue *q);
+void	q_push(t_queue *q, t_node *node);
+t_list	*make_node(size_t y, size_t x);
+t_queue	*make_queue(void);
+
+// free
+void	free_exp(int **exp);
 
 #endif

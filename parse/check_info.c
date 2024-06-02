@@ -6,26 +6,26 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:29:24 by erho              #+#    #+#             */
-/*   Updated: 2024/05/20 16:52:32 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/02 20:04:26 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	check_id(char *id, t_play *p, size_t *idx)
+void	check_id(char *id, t_play *p, size_t idx, size_t *width)
 {
 	if (ft_strcmp(id, "NO") == 0)
-		extract_path(p, idx, NORTH);
+		extract_path(p, idx, width, NORTH);
 	else if (ft_strcmp(id, "SO") == 0)
-		extract_path(p, idx, SOUTH);
+		extract_path(p, idx, width, SOUTH);
 	else if (ft_strcmp(id, "WE") == 0)
-		extract_path(p, idx, WEST);
+		extract_path(p, idx, width, WEST);
 	else if (ft_strcmp(id, "EA") == 0)
-		extract_path(p, idx, EAST);
+		extract_path(p, idx, width, EAST);
 	else if (ft_strcmp(id, "F") == 0)
-		extract_color(p, p->map.floor, idx);
+		extract_color(p, p->map.floor, idx, width);
 	else if (ft_strcmp(id, "C") == 0)
-		extract_color(p, p->map.ceiling, idx);
+		extract_color(p, p->map.ceiling, idx, width);
 	else
 		print_error(ERROR_INVALID_INFO);
 }
@@ -44,7 +44,7 @@ int	check_dup_path(t_play *p)
 		while (tmp < 4)
 		{
 			if (p->images[tmp].path == NULL
-				|| ft_strcmp(p->images[idx].path, p->images[tmp].path))
+				|| ft_strcmp(p->images[idx].path, p->images[tmp].path) == 0)
 				return (FALSE);
 			tmp++;
 		}
@@ -68,52 +68,52 @@ void	is_valid_sequence(t_play *p)
 		print_error(ERROR_INVALID_INFO);
 }
 
-void	is_valid_character(size_t start, t_play *p, size_t *idx)
+void	is_valid_character(size_t idx, size_t width, t_play *p)
 {
 	size_t	key_start;
 	char	*id;
 
-	if (ft_isalpha(p->origin[*idx]))
+	if (ft_isalpha(p->origin[idx][width]))
 	{
-		key_start = *idx;
-		while (*idx < p->origin_len && ft_isalpha(p->origin[*idx]))
-			(*idx)++;
-		if (*idx - key_start >= 3)
+		key_start = width;
+		while (ft_isalpha(p->origin[idx][width]))
+			width++;
+		if (width - key_start >= 3 || p->origin[idx][width] != ' ')
 			print_error(ERROR_INVALID_INFO);
-		id = ft_substr(p->origin, key_start, *idx - key_start);
-		printf("id: %s\n", id);
-		check_id(id, p, idx);
-		while (*idx < p->origin_len && p->origin[*idx] == ' ')
-			(*idx)++;
-		if (*idx < p->origin_len && p->origin[*idx] != '\n')
+		id = ft_substr(p->origin[idx], key_start, width - key_start);
+		check_id(id, p, idx, &width);
+		while (p->origin[idx][width] == ' ')
+			width++;
+		if (p->origin[idx][width] != '\0')
 			print_error(ERROR_INVALID_INFO);
 	}
-	else if (ft_isdigit(p->origin[*idx]))
+	else if (ft_isdigit(p->origin[idx][width]))
 	{
-		(void)start;
 		is_valid_sequence(p);
 		p->check_parsing = TRUE;
-		// p->map.split_map = split_map(&(p->origin[*idx - diff]), '\n');
+		p->map.field = &(p->origin[idx]);
+		p->map.y_size = p->height - idx;
+		//is_valid_map(&(p->map));
 	}
 }
 
 void	is_valid_info(t_play *p)
 {
 	size_t	idx;
-	size_t	start;
+	size_t	width;
 
 	idx = 0;
-	p->origin_len = ft_strlen(p->origin);
-	while (idx < p->origin_len)
+	while (p->origin[idx])
 	{
-		while (idx < p->origin_len && p->origin[idx] == '\n')
+		while (p->origin[idx] && p->origin[idx][0] == '\0')
 			idx++;
-		start = idx;
-		while (idx < p->origin_len && p->origin[idx] == ' ')
-			idx++;
-		if (idx < p->origin_len && p->origin[idx] == '\n')
-			continue ;
-		is_valid_character(start, p, &idx);
+		if (p->origin[idx] == NULL)
+			break ;
+		width = 0;
+		while (p->origin[idx][width] == ' ')
+			width++;
+		if (p->origin[idx][width] != '\0')
+			is_valid_character(idx, width, p);
 		idx++;
 	}
 	if (p->check_parsing == FALSE || check_dup_path(p) == FALSE)

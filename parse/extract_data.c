@@ -6,13 +6,13 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 00:13:08 by erho              #+#    #+#             */
-/*   Updated: 2024/05/20 16:33:19 by erho             ###   ########.fr       */
+/*   Updated: 2024/05/21 19:32:39 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	extract_path(t_play *p, size_t *idx, int image_type)
+void	extract_path(t_play *p, size_t idx, size_t *width, int image_type)
 {
 	size_t	start;
 	char	*tmp;
@@ -20,23 +20,20 @@ void	extract_path(t_play *p, size_t *idx, int image_type)
 
 	if (p->images[image_type].path != NULL)
 		print_error(ERROR_INVALID_INFO);
-	start = *idx;
-	while (*idx < p->origin_len && p->origin[*idx] == ' ')
-		(*idx)++;
-	if (*idx == start)
+	while (p->origin[idx][*width] == ' ')
+		(*width)++;
+	if (p->origin[idx][*width] == '\0')
 		print_error(ERROR_INVALID_INFO);
-	start = *idx;
-	while (*idx < p->origin_len && p->origin[*idx] != ' '
-		&& p->origin[*idx] != '\n')
-		(*idx)++;
-	path_len = *idx - start;
+	start = *width;
+	while (p->origin[idx][*width] != ' ' && p->origin[idx][*width])
+		(*width)++;
+	path_len = *width - start;
 	if (path_len < 4)
 		print_error(ERROR_INVALID_INFO);
-	p->images[image_type].path = ft_substr(p->origin, start, *idx - start);
+	p->images[image_type].path = ft_substr(p->origin[idx], start, path_len);
 	tmp = p->images[image_type].path;
 	if (ft_strcmp(&tmp[path_len - 4], ".xpm") != 0)
 		print_error(ERROR_INVALID_INFO);
-	printf("path: %s\n", p->images[image_type].path);
 }
 
 int	check_number(char *tmp)
@@ -58,45 +55,42 @@ int	check_number(char *tmp)
 	return (res);
 }
 
-int	find_number(t_play *p, size_t *idx)
+int	find_number(t_play *p, size_t idx, size_t *width)
 {
 	size_t	start;
 	char	*tmp;
 	int		res;
 
-	start = *idx;
-	while (*idx < p->origin_len && p->origin[*idx] != '\n'
-			&& p->origin[*idx] != ',' && p->origin[*idx] != ' ')
-		(*idx)++;
-	tmp = ft_substr(p->origin, start, *idx - start);
+	start = *width;
+	while (p->origin[idx][*width] && p->origin[idx][*width] != ','
+		&& p->origin[idx][*width] != ' ')
+		(*width)++;
+	if (start == *width)
+		print_error(ERROR_INVALID_INFO);
+	tmp = ft_substr(p->origin[idx], start, *width - start);
 	res = check_number(tmp);
 	return (res);
 }
 
-void	extract_color(t_play *p, int *arr, size_t *idx)
+void	extract_color(t_play *p, int *arr, size_t idx, size_t *width)
 {
-	size_t	start;
-	int		arr_idx;
+	int	arr_idx;
 
 	arr_idx = 0;
 	if (arr[0] != -1)
 		print_error(ERROR_INVALID_INFO);
-	start = *idx;
-	while (*idx < p->origin_len && p->origin[*idx] == ' '
-			&& p->origin[*idx] != '\n')
-		(*idx)++;
-	if (*idx == start)
+	while (p->origin[idx][*width] == ' ')
+		(*width)++;
+	if (p->origin[idx][*width] == '\0')
 		print_error(ERROR_INVALID_INFO);
-	while (*idx < p->origin_len && p->origin[*idx] != ' '
-		&& p->origin[*idx] != '\n')
+	while (p->origin[idx][*width] != ' ' && p->origin[idx][*width])
 	{
 		if (arr_idx == 3)
 			print_error(ERROR_INVALID_INFO);
-		arr[arr_idx++] = find_number(p, idx);
-		if (*idx < p->origin_len && p->origin[*idx] != '\n')
-			(*idx)++;
+		arr[arr_idx++] = find_number(p, idx, width);
+		if (p->origin[idx][*width])
+			(*width)++;
 	}
 	if (arr_idx < 3)
 		print_error(ERROR_INVALID_INFO);
-	printf("color: %d, %d, %d\n", arr[0], arr[1], arr[2]);
 }

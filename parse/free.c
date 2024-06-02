@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   length.c                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 21:33:37 by erho              #+#    #+#             */
-/*   Updated: 2024/05/08 21:33:54 by erho             ###   ########.fr       */
+/*   Created: 2024/05/21 20:02:22 by erho              #+#    #+#             */
+/*   Updated: 2024/05/21 22:42:25 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-size_t	ft_exp_len(char **str)
+void	free_exp(int **exp)
 {
-	size_t	len;
+	int	idx;
 
-	len = 0;
-	while (str[len])
-		len++;
-	return (len);
+	idx = 0;
+	while (exp[idx] != NULL)
+	{
+		free(exp[idx]);
+		idx++;
+	}
+	free(exp);
 }
