@@ -6,7 +6,7 @@
 #    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/05/09 05:20:59 by erho             ###   ########.fr        #
+#    Updated: 2024/06/02 19:59:14 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,11 @@ CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
-PARSE	= check_file.c check_info.c extract_data.c length.c main.c \
-		print_error.c set_play.c split_map.c
-SRCS	= $(addprefix parse/, $(PARSE))
-OBJS	= $(SRCS:%.c=%.o)
+PARSE	= check_file check_info extract_data length main print_error set_play
+SRCSNAME	= $(addprefix parse/, $(PARSE))
+SRCS		= $(addsuffix .c, $(SRCSNAME))
+OBJS		= $(addsuffix .o, $(SRCSNAME))
+DEPS		= $(addsuffix .d, $(SRCSNAME))
 LIBFT	= ./libft/libft.a
 MLX_PATH	= minilibx/
 MLX_NAME	= libmlx.a
@@ -30,8 +31,10 @@ all: $(NAME)
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $(LIBFT) $(OBJS)  -o $(NAME)
 
+-include $(DEPS)
+
 %.o : %.c
-	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAGS) -I $(INCLUDE) -c $< -o $@ -MMD
 
 $(LIBFT) :
 	make -C libft all
@@ -42,6 +45,7 @@ clean:
 	make clean -C libft
 	make clean -C $(MLX_PATH)
 	$(RM) $(OBJS)
+	$(RM) $(DEPS)
 
 fclean: clean
 	make fclean -C libft
