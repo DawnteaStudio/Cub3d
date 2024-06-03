@@ -16,16 +16,16 @@ void	print_error(int error_no)
 {
 	ft_putstr_fd("Error\n", 2);
 	if (error_no == ERROR_FILE_NAME)
-		ft_putstr_fd("invalid file name", 2);
+		ft_putstr_fd("invalid file name\n", 2);
 	else if (error_no == ERROR_STANDARD_INPUT)
-		ft_putstr_fd("invalid input", 2);
+		ft_putstr_fd("invalid input\n", 2);
 	else if (error_no == ERROR_INVALID_FILE)
-		ft_putstr_fd("file is empty or not found", 2);
+		ft_putstr_fd("file is empty or not found\n", 2);
 	else if (error_no == ERROR_INVALID_MAP)
-		ft_putstr_fd("invalid configuration on map", 2);
+		ft_putstr_fd("invalid configuration on map\n", 2);
 	else if (error_no == ERROR_INVALID_INFO)
-		ft_putstr_fd("invalid informations", 2);
+		ft_putstr_fd("invalid information\n", 2);
 	else if (error_no == ERROR_MAP_SIZE)
-		ft_putstr_fd("map is not rectangle", 2);
+		ft_putstr_fd("map is not rectangle\n", 2);
 	exit(1);
 }
