@@ -24,7 +24,7 @@ t_queue	*make_queue(void)
 	return (q);
 }
 
-t_node	*make_node(size_t y, size_t x)
+t_node	*make_node(int y, int x)
 {
 	t_node	*node;
 
@@ -39,8 +39,6 @@ t_node	*make_node(size_t y, size_t x)
 
 void	q_push(t_queue *q, t_node *node)
 {
-	t_node	*temp;
-
 	if (q->front == NULL)
 	{
 		q->front = node;
@@ -48,27 +46,20 @@ void	q_push(t_queue *q, t_node *node)
 	}
 	else
 	{
-		node->next = q->front;
-		q->front = node;
+		q->back->next = node;
+		q->back = node;
 	}
 }
 
 void	q_pop(t_queue *q)
 {
 	t_node	*delete_node;
-	t_node	*temp;
 
-	delete_node = q->back;
+	delete_node = q->front;
 	if (delete_node == NULL)
 		return ;
 	if (q->front != q->back)
-	{
-		temp = q->front;
-		while (temp->next != q->back)
-			temp = temp->next;
-		temp->next = NULL;
-		q->back = temp;
-	}
+		q->front = q->front->next;
 	else
 	{
 		q->front = NULL;

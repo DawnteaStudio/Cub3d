@@ -12,22 +12,28 @@
 
 #include "../include/cub3d.h"
 
-int	find_target(char c, int isvisit)
+void	find_target(int y, int x, char **visited, t_map *m)
 {
-	if (c == '0' && isvisit == 0)
-		return (TRUE);
-	else if ((c == 'N' || c == 'S' || c == 'W' || c == 'E') && isvisit == 0)
-		return (TRUE);
-	return (FALSE);
+	char	c;
+
+	c = m->field[y][x];
+	if (c == '1' || visited[y][x] == '1')
+		return ;
+	if (c == '0' || (c == 'N' || c == 'S' || c == 'W' || c == 'E'))
+		find_component(m, y, x, visited);
+	else if (c == ' ')
+		find_space(m, y, x, visited);
+	else
+		print_error(ERROR_INVALID_MAP);
 }
 
-int	**set_visited(t_map *m)
+char	**set_visited(t_map *m)
 {
-	int		**res;
-	size_t	idx;
-	size_t	len;
+	char	**res;
+	int		idx;
+	int		len;
 
-	res = (int **)malloc(sizeof(int *) * (m->y_size + 1));
+	res = (char **)malloc(sizeof(char *) * (m->y_size + 1));
 	if (res == NULL)
 		ft_error(MEMORY);
 	res[m->y_size] = NULL;
@@ -35,52 +41,70 @@ int	**set_visited(t_map *m)
 	while (idx < m->y_size)
 	{
 		len = ft_strlen(m->field[idx]);
-		res[idx] = (int *)malloc(sizeof(int) * len);
+		res[idx] = (char *)malloc(sizeof(char) * (len + 1));
 		if (res[idx] == NULL)
 			ft_error(MEMORY);
-		ft_memset(res[idx], 0, sizeof(int) * len);
+		res[idx][len] = '\0';
+		ft_memset(res[idx], '0', sizeof(char) * len);
 		idx++;
 	}
 	return (res);
 }
 
-void check_front_space(size_t *x, size_t y, t_map *m)
+void	check_front_space(int *x, int y, t_map *m)
 {
-	while (*x < m->x_size && m->field[y][*x] == ' ')
+	while (m->field[y][*x] == ' ')
 		(*x)++;
-	if (*x == m->x_size - 1)
+	if (*x == m->x_size)
 		print_error(ERROR_INVALID_MAP);
 }
 
-void check_back_space(size_t *x, size_t y, t_map *m)
+void	check_component(t_map *m, char **visited)
 {
-	while (*x < m->x_size && m->field[y][*x] == ' ')
-		(*x)++;
-	if (*x != m->x_size - 1)
-		print_error(ERROR_INVALID_MAP);
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < m->y_size)
+	{
+		m->x_size = (int)ft_strlen(m->field[y]);
+		printf("visited: %s\n", visited[y]);
+		x = 0;
+		while (x < m->x_size)
+		{
+			while (m->field[y][x] == ' ')
+				x++;
+//			if (x != m->y_size && m->field[y][x] == '1' && visited[y][x] == '0')
+//				print_error(ERROR_INVALID_MAP);
+			x++;
+		}
+		y++;
+	}
+	free_exp(visited);
 }
 
-void	is_valid_map(t_map *m)
+void	is_valid_map(int *idx, t_map *m)
 {
-	int		**visited;
-	size_t	x;
-	size_t	y;
+	char	**visited;
+	int		x;
+	int		y;
 
 	visited = set_visited(m);
 	y = 0;
 	while (y < m->y_size)
 	{
-		m->x_size = ft_strlen(m->field[y]);
+		m->x_size = (int)ft_strlen(m->field[y]);
 		x = 0;
 		check_front_space(&x, y, m);
-		while (x < m->x_size && m->field[y][x] != ' ')
+		while (x < m->x_size)
 		{
-			if (find_target(m->field[y][x], visited[y][x]) == TRUE)
-				bfs(m, y, x, visited);
+			find_target(y, x, visited, m);
 			x++;
 		}
-		check_back_space(&x, y, m);
 		y++;
 	}
-	free_exp(visited);
+	if (m->start_x == -1)
+		print_error(ERROR_INVALID_MAP);
+	*idx += y - 1;
+	//check_component(m, visited);
 }

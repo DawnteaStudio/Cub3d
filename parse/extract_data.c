@@ -12,11 +12,11 @@
 
 #include "../include/cub3d.h"
 
-void	extract_path(t_play *p, size_t idx, size_t *width, int image_type)
+void	extract_path(t_play *p, int idx, int *width, int image_type)
 {
-	size_t	start;
+	int		start;
 	char	*tmp;
-	size_t	path_len;
+	int		path_len;
 
 	if (p->images[image_type].path != NULL)
 		print_error(ERROR_INVALID_INFO);
@@ -55,9 +55,9 @@ int	check_number(char *tmp)
 	return (res);
 }
 
-int	find_number(t_play *p, size_t idx, size_t *width)
+int	find_number(t_play *p, int idx, int *width)
 {
-	size_t	start;
+	int		start;
 	char	*tmp;
 	int		res;
 
@@ -72,7 +72,7 @@ int	find_number(t_play *p, size_t idx, size_t *width)
 	return (res);
 }
 
-void	extract_color(t_play *p, int *arr, size_t idx, size_t *width)
+void	extract_color(t_play *p, int *arr, int idx, int *width)
 {
 	int	arr_idx;
 

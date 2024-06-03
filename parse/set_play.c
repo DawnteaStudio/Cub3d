@@ -12,6 +12,25 @@
 
 #include "../include/cub3d.h"
 
+void	set_height(t_play *play)
+{
+	int	i;
+	int	width;
+
+	i = play->height - 1;
+	while (i >= 0) {
+		width = 0;
+		while (play->origin[i][width] == ' ')
+			width++;
+		if (play->origin[i][width] != '\0')
+		{
+			play->height = i + 1;
+			break ;
+		}
+		i--;
+	}
+}
+
 void	initial_play(t_play *play)
 {
 	int	i;

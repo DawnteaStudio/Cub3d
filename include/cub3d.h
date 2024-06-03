@@ -73,8 +73,8 @@ typedef struct s_map
 	int		direction;
 	int		ceiling[3];
 	int		floor[3];
-	size_t	y_size;
-	size_t	x_size;
+	int		y_size;
+	int 	x_size;
 }	t_map;
 
 typedef struct s_play {
@@ -83,13 +83,13 @@ typedef struct s_play {
 	char	**origin;
 	t_image	images[4];
 	int		check_parsing;
-	size_t	height;
+	int 	height;
 	t_map	map;
 }	t_play;
 
 typedef struct s_node {
-	size_t			y;
-	size_t			x;
+	int				y;
+	int				x;
 	struct s_node	*next;
 }	t_node;
 
@@ -98,9 +98,20 @@ typedef struct s_queue {
 	t_node	*back;
 }	t_queue;
 
+typedef struct s_search {
+	int		*dy;
+	int 	*dx;
+	int 	idx;
+	int 	x;
+	int 	y;
+	int 	is_outside;
+	t_queue	*queue;
+}	t_search;
+
 /* parse */
-// length
-size_t	ft_exp_len(char **str);
+// read
+char	**read_map(int *height, char *map_file);
+void	free_exp(char **exp);
 
 // check_file
 void	is_valid_file(char *file, int fd);
@@ -109,17 +120,19 @@ void	is_valid_file(char *file, int fd);
 void	is_valid_info(t_play *p);
 
 // check_map
-void	is_valid_map(t_map *m);
+void	is_valid_map(int *idx, t_map *m);
 
 // bfs
-void	bfs(t_map *m, size_t start_y, size_t start_x, int **visited);
+void	find_component(t_map *m, int start_y, int start_x, char **visited);
+void	find_space(t_map *m, int start_y, int start_x, char **visited);
 
 // set_play
 void	initial_play(t_play *play);
+void	set_height(t_play *play);
 
 // extract_data
-void	extract_path(t_play *p, size_t idx, size_t *width, int image_type);
-void	extract_color(t_play *p, int *arr, size_t idx, size_t *width);
+void	extract_path(t_play *p, int idx, int *width, int image_type);
+void	extract_color(t_play *p, int *arr, int idx, int *width);
 
 // print_error
 void	print_error(int error_no);
@@ -127,10 +140,7 @@ void	print_error(int error_no);
 // queue
 void	q_pop(t_queue *q);
 void	q_push(t_queue *q, t_node *node);
-t_list	*make_node(size_t y, size_t x);
+t_node	*make_node(int y, int x);
 t_queue	*make_queue(void);
-
-// free
-void	free_exp(int **exp);
 
 #endif

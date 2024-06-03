@@ -14,7 +14,7 @@
 
 int	is_valid_file_name(char *file)
 {
-	size_t	len;
+	int	len;
 
 	len = ft_strlen(file);
 	if (len < 4)

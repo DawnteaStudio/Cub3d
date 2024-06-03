@@ -12,66 +12,106 @@
 
 #include "../include/cub3d.h"
 
-void	set_dy_dx(int **dy, int **dx)
+int	check_range(int y, int x, t_map *m)
 {
-	*dy = (int *)malloc(sizeof(int) * 4);
-	*dx = (int *)malloc(sizeof(int) * 4);
-	if (*dy == NULL || *dx == NULL)
-		ft_error(MEMORY);
-	(*dy)[0] = 0;
-	(*dy)[1] = -1;
-	(*dy)[2] = 0;
-	(*dy)[3] = 1;
-	(*dx)[0] = -1;
-	(*dx)[1] = 0;
-	(*dx)[2] = 1;
-	(*dx)[3] = 0;
+	if (y >= m->y_size || y < 0 || x >= (int)ft_strlen(m->field[y]) || x < 0)
+		return (TRUE);
+	return (FALSE);
 }
 
-int	find_next_idx(t_map *m, size_t y, size_t x, int **visited)
+int	find_next_idx(t_map *m, int y, int x, char **visited)
 {
-	if (y >= m->y_size || y < 0 || x >= ft_strlen(m->field[y]) || x < 0)
+
+	if (check_range(y, x, m) == TRUE)
 		print_error(ERROR_INVALID_MAP);
 	if (m->field[y][x] == ' ' || m->field[y][x] == '\0')
 		print_error(ERROR_INVALID_MAP);
-	if (m->field[y][x] == '1' || (m->field[y][x] == '0' && visited[y][x] == 1))
-		return (FALSE);
-	if (m->field[y][x] == 'N' || m->field[y][x] == 'S'
-		|| m->field[y][x] == 'W' || m->field[y][x] == 'E')
+	if (m->field[y][x] == '0' && visited[y][x] == '0')
+		return (TRUE);
+	if ((m->field[y][x] == 'N' || m->field[y][x] == 'S'
+		|| m->field[y][x] == 'W' || m->field[y][x] == 'E') && visited[y][x] == '0')
 	{
 		if (m->start_x != -1)
 			print_error(ERROR_INVALID_MAP);
 		m->start_x = x;
 		m->start_y = y;
+		return (TRUE);
 	}
-	return (TRUE);
+	return (FALSE);
 }
 
-void	bfs(t_map *m, size_t start_y, size_t start_x, int **visited)
+void set_search(t_search *search)
 {
-	t_queue	*queue;
-	int		*dy;
-	int		*dx;
-	int		i;
+	search->queue = make_queue();
+	search->is_outside = FALSE;
+	search->dy = (int *)malloc(sizeof(int) * 4);
+	search->dx = (int *)malloc(sizeof(int) * 4);
+	if (search->dy == NULL || search->dx == NULL)
+		ft_error(MEMORY);
+	search->dy[0] = 0;
+	search->dy[1] = -1;
+	search->dy[2] = 0;
+	search->dy[3] = 1;
+	search->dx[0] = -1;
+	search->dx[1] = 0;
+	search->dx[2] = 1;
+	search->dx[3] = 0;
+}
 
-	queue = make_queue();
-	q_push(queue, make_node(start_y, start_x));
-	visited[start_y][start_x] = 1;
-	set_dy_dx(&dy, &dx);
-	while (queue->front != NULL)
+void	find_component(t_map *m, int start_y, int start_x, char **visited)
+{
+	t_search	search;
+
+	set_search(&search);
+	q_push(search.queue, make_node(start_y, start_x));
+	visited[start_y][start_x] = '1';
+	while (search.queue->front != NULL)
 	{
-		i = 0;
-		while (i < 4)
+		search.idx = -1;
+		while (++search.idx < 4)
 		{
-			if (find_next_idx(m, queue->front->y + dy[i],
-				queue->front->x + dx[i], visited) == TRUE)
+			search.y = search.queue->front->y + search.dy[search.idx];
+			search.x = search.queue->front->x + search.dx[search.idx];
+			if (find_next_idx(m, search.y, search.x, visited) == TRUE)
 			{
-				visited[queue->front->y + dy[i]][queue->front->x + dx[i]] = 1;
-				q_push(queue, make_node(queue->front->y + dy[i],
-					queue->front->x + dx[i]));
+				visited[search.y][search.x] = '1';
+				q_push(search.queue, make_node(search.y, search.x));
 			}
-			i++;
 		}
-		q_pop(queue);
+		q_pop(search.queue);
 	}
+	free(search.dy);
+	free(search.dx);
+	free(search.queue);
+}
+
+void	find_space(t_map *m, int start_y, int start_x, char **visited)
+{
+	t_search	search;
+
+	set_search(&search);
+	q_push(search.queue, make_node(start_y, start_x));
+	visited[start_y][start_x] = '1';
+	while (search.queue->front != NULL)
+	{
+		search.idx = -1;
+		while (++search.idx < 4)
+		{
+			search.y = search.queue->front->y + search.dy[search.idx];
+			search.x = search.queue->front->x + search.dx[search.idx];
+			if (check_range(search.y, search.x, m) == TRUE)
+				search.is_outside = TRUE;
+			else if (m->field[search.y][search.x] == ' ' && visited[search.y][search.x] == '0')
+			{
+				visited[search.y][search.x] = '1';
+				q_push(search.queue, make_node(search.y, search.x));
+			}
+		}
+		q_pop(search.queue);
+	}
+	if (search.is_outside == FALSE)
+		print_error(ERROR_INVALID_MAP);
+	free(search.dy);
+	free(search.dx);
+	free(search.queue);
 }

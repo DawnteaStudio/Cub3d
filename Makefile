@@ -16,8 +16,8 @@ CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
-PARSE	= check_file check_info extract_data main print_error set_play bfs free \
-			queue check_map
+PARSE	= check_file check_info extract_data main print_error set_play bfs \
+			queue check_map read
 SRCSNAME	= $(addprefix parse/, $(PARSE))
 SRCS		= $(addsuffix .c, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))

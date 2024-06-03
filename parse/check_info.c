@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-void	check_id(char *id, t_play *p, size_t idx, size_t *width)
+void	check_id(char *id, t_play *p, int idx, int *width)
 {
 	if (ft_strcmp(id, "NO") == 0)
 		extract_path(p, idx, width, NORTH);
@@ -53,7 +53,7 @@ int	check_dup_path(t_play *p)
 	return (TRUE);
 }
 
-void	is_valid_sequence(t_play *p)
+void	check_sequence(t_play *p)
 {
 	int	i;
 
@@ -68,44 +68,44 @@ void	is_valid_sequence(t_play *p)
 		print_error(ERROR_INVALID_INFO);
 }
 
-void	is_valid_character(size_t idx, size_t width, t_play *p)
+void	check_character(int *idx, int width, t_play *p)
 {
-	size_t	key_start;
+	int		key_start;
 	char	*id;
 
-	if (ft_isalpha(p->origin[idx][width]))
+	if (ft_isalpha(p->origin[*idx][width]))
 	{
 		key_start = width;
-		while (ft_isalpha(p->origin[idx][width]))
+		while (ft_isalpha(p->origin[*idx][width]))
 			width++;
-		if (width - key_start >= 3 || p->origin[idx][width] != ' ')
+		if (width - key_start >= 3 || p->origin[*idx][width] != ' ')
 			print_error(ERROR_INVALID_INFO);
-		id = ft_substr(p->origin[idx], key_start, width - key_start);
-		check_id(id, p, idx, &width);
-		while (p->origin[idx][width] == ' ')
+		id = ft_substr(p->origin[*idx], key_start, width - key_start);
+		check_id(id, p, *idx, &width);
+		while (p->origin[*idx][width] == ' ')
 			width++;
-		if (p->origin[idx][width] != '\0')
+		if (p->origin[*idx][width] != '\0')
 			print_error(ERROR_INVALID_INFO);
 	}
-	else if (ft_isdigit(p->origin[idx][width]))
+	else if (ft_isdigit(p->origin[*idx][width]))
 	{
-		is_valid_sequence(p);
+		check_sequence(p);
 		p->check_parsing = TRUE;
-		p->map.field = &(p->origin[idx]);
-		p->map.y_size = p->height - idx;
-		//is_valid_map(&(p->map));
+		p->map.field = &(p->origin[*idx]);
+		p->map.y_size = p->height - *idx;
+		is_valid_map(idx, &(p->map));
 	}
 }
 
 void	is_valid_info(t_play *p)
 {
-	size_t	idx;
-	size_t	width;
+	int	idx;
+	int	width;
 
 	idx = 0;
-	while (p->origin[idx])
+	while (idx < p->height)
 	{
-		while (p->origin[idx] && p->origin[idx][0] == '\0')
+		while (idx < p->height && p->origin[idx][0] == '\0')
 			idx++;
 		if (p->origin[idx] == NULL)
 			break ;
@@ -113,7 +113,7 @@ void	is_valid_info(t_play *p)
 		while (p->origin[idx][width] == ' ')
 			width++;
 		if (p->origin[idx][width] != '\0')
-			is_valid_character(idx, width, p);
+			check_character(&idx, width, p);
 		idx++;
 	}
 	if (p->check_parsing == FALSE || check_dup_path(p) == FALSE)
