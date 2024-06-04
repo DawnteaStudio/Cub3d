@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:28:00 by erho              #+#    #+#             */
-/*   Updated: 2024/05/21 20:11:31 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:31:05 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_queue	*make_queue(void)
 {
-	t_queue *q;
+	t_queue	*q;
 
 	q = (t_queue *)malloc(sizeof(t_queue));
 	if (q == NULL)

@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/04 16:10:55 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:19:02 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ typedef struct s_search {
 /* parse */
 // read
 char	**read_map(int *height, char *map_file);
-void	free_exp(char **exp);
 
 // check_file
 void	is_valid_file(char *file, int fd);
@@ -123,8 +122,8 @@ void	is_valid_info(t_play *p);
 void	is_valid_map(int *idx, t_map *m);
 
 // bfs
-void	find_component(t_map *m, int start_y, int start_x, char **visited);
-void	find_space(t_map *m, int start_y, int start_x, char **visited);
+void	find_component(t_map *m, int start_y, int start_x, int **visited);
+void	find_space(t_map *m, int start_y, int start_x, int **visited);
 
 // play
 void	initial_play(t_play *play);

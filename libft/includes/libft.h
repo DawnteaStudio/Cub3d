@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:37:23 by erho              #+#    #+#             */
-/*   Updated: 2024/05/08 23:37:06 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:18:22 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LIBFT_H
 
 # define MEMORY 50
-# define OVERFLOW 53
 # define LM 922337203685477580
 
 # include <stdlib.h>

@@ -6,7 +6,7 @@
 #    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/02 21:37:40 by erho             ###   ########.fr        #
+#    Updated: 2024/06/04 16:18:41 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
-PARSE	= check_file check_info extract_data main print_error set_play bfs \
-			queue check_map read
+PARSE	= check_file check_info extract_data main print_error play bfs \
+			queue check_map read search
 SRCSNAME	= $(addprefix parse/, $(PARSE))
 SRCS		= $(addsuffix .c, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))

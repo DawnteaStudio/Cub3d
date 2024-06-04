@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 20:16:24 by erho              #+#    #+#             */
-/*   Updated: 2024/06/03 20:16:25 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:13:16 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-void	free_exp(char **exp)
-{
-	int	idx;
-
-	idx = 0;
-	while (exp[idx] != NULL)
-	{
-		free(exp[idx]);
-		idx++;
-	}
-	free(exp);
-}
 
 char	**set_exp(int size)
 {
