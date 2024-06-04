@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/02 21:36:55 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:10:55 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@
 # define TRUE 1
 # define FALSE 0
 
+# include <stdio.h>
+# include <stdlib.h>
+# include <math.h>
+# include <fcntl.h>
+# include "../libft/includes/libft.h"
+# include "../minilibx/mlx.h"
+
 typedef enum e_direction
 {
 	NORTH,
@@ -51,13 +58,6 @@ typedef enum e_error_type
 	ERROR_MAP_SIZE
 }	t_error_type;
 
-# include "../libft/includes/libft.h"
-# include "../minilibx/mlx.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <math.h>
-# include <fcntl.h>
-
 typedef struct s_image {
 	char	*path;
 	void	*image;
@@ -74,7 +74,7 @@ typedef struct s_map
 	int		ceiling[3];
 	int		floor[3];
 	int		y_size;
-	int 	x_size;
+	int		x_size;
 }	t_map;
 
 typedef struct s_play {
@@ -83,7 +83,7 @@ typedef struct s_play {
 	char	**origin;
 	t_image	images[4];
 	int		check_parsing;
-	int 	height;
+	int		height;
 	t_map	map;
 }	t_play;
 
@@ -100,11 +100,11 @@ typedef struct s_queue {
 
 typedef struct s_search {
 	int		*dy;
-	int 	*dx;
-	int 	idx;
-	int 	x;
-	int 	y;
-	int 	is_outside;
+	int		*dx;
+	int		idx;
+	int		x;
+	int		y;
+	int		is_outside;
 	t_queue	*queue;
 }	t_search;
 
@@ -126,9 +126,13 @@ void	is_valid_map(int *idx, t_map *m);
 void	find_component(t_map *m, int start_y, int start_x, char **visited);
 void	find_space(t_map *m, int start_y, int start_x, char **visited);
 
-// set_play
+// play
 void	initial_play(t_play *play);
 void	set_height(t_play *play);
+
+// search
+void	set_search(t_search *search);
+void	free_search(t_search *search);
 
 // extract_data
 void	extract_path(t_play *p, int idx, int *width, int image_type);

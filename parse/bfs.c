@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:29:08 by erho              #+#    #+#             */
-/*   Updated: 2024/06/02 21:44:36 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:11:20 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ int	check_range(int y, int x, t_map *m)
 
 int	find_next_idx(t_map *m, int y, int x, char **visited)
 {
-
 	if (check_range(y, x, m) == TRUE)
 		print_error(ERROR_INVALID_MAP);
 	if (m->field[y][x] == ' ' || m->field[y][x] == '\0')
 		print_error(ERROR_INVALID_MAP);
 	if (m->field[y][x] == '0' && visited[y][x] == '0')
 		return (TRUE);
-	if ((m->field[y][x] == 'N' || m->field[y][x] == 'S'
-		|| m->field[y][x] == 'W' || m->field[y][x] == 'E') && visited[y][x] == '0')
+	if ((m->field[y][x] == 'N' || m->field[y][x] == 'S' || m->field[y][x] == 'W'
+		|| m->field[y][x] == 'E') && visited[y][x] == '0')
 	{
 		if (m->start_x != -1)
 			print_error(ERROR_INVALID_MAP);
@@ -38,24 +37,6 @@ int	find_next_idx(t_map *m, int y, int x, char **visited)
 		return (TRUE);
 	}
 	return (FALSE);
-}
-
-void set_search(t_search *search)
-{
-	search->queue = make_queue();
-	search->is_outside = FALSE;
-	search->dy = (int *)malloc(sizeof(int) * 4);
-	search->dx = (int *)malloc(sizeof(int) * 4);
-	if (search->dy == NULL || search->dx == NULL)
-		ft_error(MEMORY);
-	search->dy[0] = 0;
-	search->dy[1] = -1;
-	search->dy[2] = 0;
-	search->dy[3] = 1;
-	search->dx[0] = -1;
-	search->dx[1] = 0;
-	search->dx[2] = 1;
-	search->dx[3] = 0;
 }
 
 void	find_component(t_map *m, int start_y, int start_x, char **visited)
@@ -80,9 +61,7 @@ void	find_component(t_map *m, int start_y, int start_x, char **visited)
 		}
 		q_pop(search.queue);
 	}
-	free(search.dy);
-	free(search.dx);
-	free(search.queue);
+	free_search(&search);
 }
 
 void	find_space(t_map *m, int start_y, int start_x, char **visited)
@@ -111,7 +90,5 @@ void	find_space(t_map *m, int start_y, int start_x, char **visited)
 	}
 	if (search.is_outside == FALSE)
 		print_error(ERROR_INVALID_MAP);
-	free(search.dy);
-	free(search.dx);
-	free(search.queue);
+	free_search(&search);
 }
