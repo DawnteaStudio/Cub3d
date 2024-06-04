@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:29:24 by erho              #+#    #+#             */
-/*   Updated: 2024/06/02 20:04:26 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:02:15 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	check_id(char *id, t_play *p, int idx, int *width)
 		extract_color(p, p->map.ceiling, idx, width);
 	else
 		print_error(ERROR_INVALID_INFO);
+	free(id);
 }
 
 int	check_dup_path(t_play *p)

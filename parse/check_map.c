@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:16:04 by erho              #+#    #+#             */
-/*   Updated: 2024/06/02 22:13:42 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:00:58 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ void	is_valid_map(int *idx, t_map *m)
 	if (m->start_x == -1)
 		print_error(ERROR_INVALID_MAP);
 	*idx += y - 1;
+	free_exp(visited);
 	//check_component(m, visited);
 }
