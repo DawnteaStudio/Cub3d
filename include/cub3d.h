@@ -6,24 +6,15 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/04 16:19:02 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/10 21:54:00 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define IMAGE_SIZE 64
-
-// mask code
-# define KEY_PRESS_MASK 1
-
 // mac key codes
 # define LEFT_CLICK 1
-# define KEY_UP 126
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-# define KEY_DOWN 125
 # define ESC 53
 # define KEY_PRESS 2
 # define EXIT_BUTTON 17
