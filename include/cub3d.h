@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/10 22:08:18 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:11:56 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ typedef struct s_map
 	int		direction;
 	int		ceiling[3];
 	int		floor[3];
+	void	*img;
+	int		*data;
+	int		bpp;
+	int		line_size;
+	int		endian;
 	int		y_size;
 	int		x_size;
 }	t_map;
@@ -163,5 +168,6 @@ t_node	*make_node(int y, int x);
 t_queue	*make_queue(void);
 
 /* exec */
+void	init_game(t_play *play);
 
 #endif

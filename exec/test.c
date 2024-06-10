@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/22 14:44:41 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:15:04 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ void	init_game(t_play *play)
 	mlx_loop(play->mlx);
 }
 
-int	main(int argc, char **argv)
-{
-	t_play	play;
+// int	main(int argc, char **argv)
+// {
+// 	t_play	play;
 
-	(void)argc;
-	(void)argv;
+// 	(void)argc;
+// 	(void)argv;
 	// if (argc != 2)
 	// 	print_error(ERROR_STANDARD_INPUT);
 	// initial_play(&play);
@@ -91,6 +91,6 @@ int	main(int argc, char **argv)
 	// 	print_error(ERROR_INVALID_FILE);
 	// is_valid_info(&play);
 	//game(&play);
-	init_game(&play);
-	return (0);
-}
+// 	init_game(&play);
+// 	return (0);
+// }
