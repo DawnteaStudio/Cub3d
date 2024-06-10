@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 18:37:23 by erho              #+#    #+#             */
-/*   Updated: 2024/05/08 20:24:28 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/04 16:18:22 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LIBFT_H
 
 # define MEMORY 50
-# define OVERFLOW 53
 # define LM 922337203685477580
 
 # include <stdlib.h>
@@ -27,7 +26,6 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-char	**ft_split(char const *s, char c);
 size_t	ft_strlen(const char *str);
 size_t	ft_strlcat(char *dest, const char *src, size_t len);
 int		ft_putstr(char *s);
@@ -47,7 +45,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 char	*ft_itoa(int n);
-int		ft_isdigit(int c);
 int		ft_isalpha(int c);
 
 #endif
