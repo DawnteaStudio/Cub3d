@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/10 21:54:00 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/10 22:08:18 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <math.h>
+# include <fcntl.h>
+# include "../libft/includes/libft.h"
+# include "../minilibx/mlx.h"
 
 // mac key codes
 # define LEFT_CLICK 1
@@ -22,12 +29,30 @@
 # define TRUE 1
 # define FALSE 0
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <math.h>
-# include <fcntl.h>
-# include "../libft/includes/libft.h"
-# include "../minilibx/mlx.h"
+# define MINIMAP 0.25
+# define IMAGE_SIZE 80
+
+# define MAP_ROW_SIZE 12
+# define WINDOW_H (IMAGE_SIZE * MAP_ROW_SIZE)
+
+# define MAP_COL_SIZE 20
+# define WINDOW_W (IMAGE_SIZE * MAP_COL_SIZE)
+
+typedef enum e_key_move
+{
+	KEY_A = 0,
+	KEY_S,
+	KEY_D,
+	KEY_W = 13
+}	t_key_move;
+
+typedef enum e_key_direct
+{
+	KEY_LEFT = 123,
+	KEY_RIGHT,
+	KEY_DOWN,
+	KEY_UP
+}	t_key_direct;
 
 typedef enum e_direction
 {
@@ -136,5 +161,7 @@ void	q_pop(t_queue *q);
 void	q_push(t_queue *q, t_node *node);
 t_node	*make_node(int y, int x);
 t_queue	*make_queue(void);
+
+/* exec */
 
 #endif
