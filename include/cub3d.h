@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/10 22:45:13 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:57:58 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define TRUE 1
 # define FALSE 0
 
-# define MINIMAP 0.25
+# define MINIMAP 0.1
 # define IMAGE_SIZE 80
 
 # define MAP_ROW_SIZE 12
@@ -37,6 +37,11 @@
 
 # define MAP_COL_SIZE 20
 # define WINDOW_W (IMAGE_SIZE * MAP_COL_SIZE)
+
+// colors
+#define WHITE 0xffffff
+#define SKYBLUE 0x00ffff
+#define GREEN 0x0A3711
 
 typedef enum e_key_move
 {
@@ -107,6 +112,17 @@ typedef struct s_play {
 	int		height;
 	t_map	map;
 }	t_play;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	int		player_size;
+	// double	rota_angle;
+	// double	walk_speed;
+	// double	turn_speed;
+	// double	updown_sight;
+}	t_player;
 
 typedef struct s_node {
 	int				y;

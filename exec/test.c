@@ -6,26 +6,11 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/10 22:43:23 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/14 19:58:15 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-// const int mini_map[MAP_ROW_SIZE][MAP_COL_SIZE] = {
-//     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1},
-//     {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-//     {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-//     {1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1},
-//     {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-//     {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-//     {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-//     {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-//     {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1},
-//     {1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-//     {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-//     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-// };
 
 void fill_squares(t_map *map, int x, int y, int color)
 {
@@ -38,7 +23,7 @@ void fill_squares(t_map *map, int x, int y, int color)
 		i = 0;
 		while (i < (int)(MINIMAP * IMAGE_SIZE))
 		{
-			map->data[(int)(MINIMAP * WINDOW_W) * (y + j) + (x + i)] = color;
+			map->data[WINDOW_W * (y + j) + (x + i)] = color;
 			i++;
 		}
 		j++;
@@ -49,32 +34,32 @@ void	render_map(t_play *play, t_map *map)
 {
 	int col;
 	int row;
-
 	map->data = (int *)mlx_get_data_addr(map->img, &(map->bpp), &(map->line_size), &(map->endian));
+	printf("%d\n", map->line_size);
 	row = 0;
 	while (row < map->y_size)
 	{
 		col = 0;
-		while (col < map->x_size)
+		while (col < (int)ft_strlen(map->field[row]))
 		{
 			if (map->field[row][col] == '1')
-				fill_squares(map, (int)(MINIMAP * IMAGE_SIZE * col), (int)(MINIMAP * IMAGE_SIZE * row), 0x0A3711);
+				fill_squares(map, (int)(MINIMAP * IMAGE_SIZE * col), (int)(MINIMAP * IMAGE_SIZE * row), GREEN);
 			else if (map->field[row][col] == '0')
-				fill_squares(map, (int)(MINIMAP * IMAGE_SIZE * col), (int)(MINIMAP * IMAGE_SIZE * row), 0xffffff);
+				fill_squares(map, (int)(MINIMAP * IMAGE_SIZE * col), (int)(MINIMAP * IMAGE_SIZE * row), WHITE);
 			else
-				fill_squares(map, (int)(MINIMAP * IMAGE_SIZE * col), (int)(MINIMAP * IMAGE_SIZE * row), 0x00ffff);
+				fill_squares(map, (int)(MINIMAP * IMAGE_SIZE * col), (int)(MINIMAP * IMAGE_SIZE * row), SKYBLUE);
 			col++;
 		}
 		row++;
 	}
-	mlx_put_image_to_window(play->mlx, play->win, map->img, (int)(WINDOW_W * (1 - MINIMAP)), (int)(WINDOW_H * (1 - MINIMAP)));
+	mlx_put_image_to_window(play->mlx, play->win, map->img, 0, 0);
 }
 
 void	init_game(t_play *play)
 {
 	play->mlx = mlx_init();
 	play->win = mlx_new_window(play->mlx, WINDOW_W, WINDOW_H, "cub3d");
-	play->map.img = mlx_new_image(play->mlx, (int)(MINIMAP * WINDOW_W), (int)(MINIMAP * WINDOW_H));
+	play->map.img = mlx_new_image(play->mlx, WINDOW_W, WINDOW_H);
 	render_map(play, &play->map);
 	mlx_loop(play->mlx);
 }
