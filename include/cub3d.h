@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 10:57:36 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 10:59:16 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,29 @@
 # define LEFT_CLICK 1
 # define ESC 53
 # define KEY_PRESS 2
+# define KEY_RELEASE 3
 # define EXIT_BUTTON 17
 
 # define TRUE 1
 # define FALSE 0
 
 # define MINIMAP 0.1
-# define IMAGE_SIZE 80
+# define IMAGE_SIZE 64
 
 # define MAP_ROW_SIZE 12
-# define WINDOW_H (IMAGE_SIZE * MAP_ROW_SIZE)
-
-# define MAP_COL_SIZE 20
-# define WINDOW_W (IMAGE_SIZE * MAP_COL_SIZE)
+# define MAP_COL_SIZE 16
 
 // colors
 # define WHITE 0xffffff
 # define SKYBLUE 0x00ffff
 # define GREEN 0x0A3711
+
+//wall
+# define WALL_X 0
+# define WALL_Y 1
+
+//texture
+# define TEXTURE 64
 
 typedef enum e_key_move
 {
@@ -54,9 +59,7 @@ typedef enum e_key_move
 typedef enum e_key_direct
 {
 	KEY_LEFT = 123,
-	KEY_RIGHT,
-	KEY_DOWN,
-	KEY_UP
+	KEY_RIGHT
 }	t_key_direct;
 
 typedef enum e_direction
@@ -79,10 +82,23 @@ typedef enum e_error_type
 	ERROR_MAP_SIZE
 }	t_error_type;
 
+typedef struct s_key
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}	t_key;
+
 typedef struct s_image
 {
 	char	*path;
-	void	*image;
+	int		*image;
+	int		bpp;
+	int		line_size;
+	int		endian;
 	int		width;
 	int		height;
 }	t_image;
@@ -104,20 +120,42 @@ typedef struct s_map
 	int		x_size;
 }	t_map;
 
+typedef struct s_wall
+{
+	int		draw_start;
+	int		draw_end;
+	int		line_h;
+	int		texture_x;
+	int		texture_y;
+	double	wall_dist;
+	double	wall_x;
+	int		collision_wall;
+	double	step;
+	double	texture_p;
+	int		index;
+}	t_wall;
+
 typedef struct s_ray
 {
 	double	dir_x;
 	double	dir_y;
+	double	ray_x;
+	double	ray_y;
 	double	plane_x;
 	double	plane_y;
+	double	delta_x;
+	double	delta_y;
+	double	size_x;
+	double	size_y;
 }	t_ray;
 
 typedef struct s_player
 {
 	double	x;
 	double	y;
+	int		step_x;
+	int		step_y;
 	int		player_size;
-	t_ray	player_ray;
 	double	walk_speed;
 	double	turn_speed;
 	// double	rota_angle;
@@ -128,12 +166,18 @@ typedef struct s_play
 {
 	void		*mlx;
 	void		*win;
+	int			win_h;
+	int			win_w;
+	int			**screen;
 	char		**origin;
 	t_image		images[4];
 	int			check_parsing;
 	int			height;
 	t_map		map;
 	t_player	player;
+	t_ray		ray;
+	t_wall		wall;
+	t_key		key;
 }	t_play;
 
 typedef struct s_node
@@ -205,19 +249,39 @@ t_queue	*make_queue(void);
 
 //init
 void	init_game(t_play *play);
-void	init_player(t_map *map, t_player *player);
+void	init_player(t_play *play);
 
 //free
 int		exit_game(t_play *play);
 
 //keypress
 int		key_press(int key, t_play *play);
+int		key_release(int key, t_play *play);
 
 //render
-void	render_map(t_play *play, t_map *map);
-
+void	render_map(t_play *play);
+void	render_wall(t_play *play);
+void	render_background(t_play *play);
 
 //logic
 int		main_loop(t_play *play);
+void	check_texture_index(t_play *play);
+
+//ray
+void	ray_setting(t_play *play, int x);
+void	calc_size_dist_ray(t_play *play);
+void	calc_ray_hit(t_play *play);
+void	calc_draw_height(t_play *play);
+void	calc_hit_point_texture(t_play *play, int x);
+
+//key_move
+void	move_w(t_play *play);
+void	move_s(t_play *play);
+void	move_a(t_play *play);
+void	move_d(t_play *play);
+
+//key_event
+void	event_left(t_play *play);
+void	event_right(t_play *play);
 
 #endif

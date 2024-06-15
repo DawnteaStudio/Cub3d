@@ -5,12 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/06/23 10:56:33 by sewopark         ###   ########.fr        #
-=======
-#    Updated: 2024/06/15 22:08:49 by sewopark         ###   ########.fr        #
->>>>>>> 78fb13f... [Feat] mlx exercise to study
+#    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
+#    Updated: 2024/06/23 10:59:13 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +18,8 @@ CFLAGS	= -Wall -Wextra -Werror
 MLXFLAG	= -framework OpenGL -framework AppKit
 
 PARSE	= check_file check_info extract_data main print_error play bfs \
-			queue check_map read search
-EXEC	= render free keypress init logic
+			queue check_map read search map_utils
+EXEC	= render free key init logic ray key_move key_event
 SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
 SRCS		= $(addsuffix .c, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))

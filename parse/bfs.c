@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:29:08 by erho              #+#    #+#             */
-/*   Updated: 2024/06/16 00:01:21 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/21 00:08:56 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ int	find_next_idx(t_map *m, int y, int x, int **visited)
 	{
 		if (m->start_x != -1)
 			print_error(ERROR_INVALID_MAP);
+		if (m->field[y][x] == 'N')
+			m->direction = NORTH;
+		else if (m->field[y][x] == 'S')
+			m->direction = SOUTH;
+		else if (m->field[y][x] == 'W')
+			m->direction = WEST;
+		else
+			m->direction = EAST;
 		m->start_x = x;
 		m->start_y = y;
 		return (TRUE);
