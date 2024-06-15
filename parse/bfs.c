@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:29:08 by erho              #+#    #+#             */
-/*   Updated: 2024/06/04 16:30:08 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/16 00:01:21 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_range(int y, int x, t_map *m)
 {
-	if (y >= m->y_size || y < 0 || x >= (int)ft_strlen(m->field[y]) || x < 0)
+	if (y >= m->y_size || y < 0 || x >= m->x_size || x < 0)
 		return (TRUE);
 	return (FALSE);
 }

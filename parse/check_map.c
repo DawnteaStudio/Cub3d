@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:16:04 by erho              #+#    #+#             */
-/*   Updated: 2024/06/04 16:30:26 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/16 00:00:02 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	**set_visited(t_map *m)
 {
 	int	**res;
 	int	idx;
-	int	len;
 
 	res = (int **)malloc(sizeof(int *) * (m->y_size + 1));
 	if (res == NULL)
@@ -53,11 +52,10 @@ int	**set_visited(t_map *m)
 	idx = 0;
 	while (idx < m->y_size)
 	{
-		len = ft_strlen(m->field[idx]);
-		res[idx] = (int *)malloc(sizeof(int) * (len));
+		res[idx] = (int *)malloc(sizeof(int) * (m->x_size));
 		if (res[idx] == NULL)
 			ft_error(MEMORY);
-		ft_memset(res[idx], 0, sizeof(int) * len);
+		ft_memset(res[idx], 0, sizeof(int) * m->x_size);
 		idx++;
 	}
 	return (res);
@@ -81,7 +79,6 @@ void	is_valid_map(int *idx, t_map *m)
 	y = 0;
 	while (y < m->y_size)
 	{
-		m->x_size = (int)ft_strlen(m->field[y]);
 		x = 0;
 		check_front_space(&x, y, m);
 		while (x < m->x_size)

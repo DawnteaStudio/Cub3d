@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/10 21:54:00 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/14 22:53:36 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ void	is_valid_info(t_play *p);
 
 // check_map
 void	is_valid_map(int *idx, t_map *m);
+
+// map_utils
+void	make_field(t_play *p, int idx);
 
 // bfs
 void	find_component(t_map *m, int start_y, int start_x, int **visited);

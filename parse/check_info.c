@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 23:29:24 by erho              #+#    #+#             */
-/*   Updated: 2024/06/04 16:02:15 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/14 22:54:12 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ void	check_character(int *idx, int width, t_play *p)
 	{
 		check_sequence(p);
 		p->check_parsing = TRUE;
-		p->map.field = &(p->origin[*idx]);
-		p->map.y_size = p->height - *idx;
+		make_field(p, *idx);
 		is_valid_map(idx, &(p->map));
 	}
 }
