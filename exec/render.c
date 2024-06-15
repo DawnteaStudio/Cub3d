@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/14 19:58:15 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/15 21:52:12 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	render_map(t_play *play, t_map *map)
 {
 	int col;
 	int row;
-	map->data = (int *)mlx_get_data_addr(map->img, &(map->bpp), &(map->line_size), &(map->endian));
+	map->data = (int *)mlx_get_data_addr(map->image, &(map->bpp), &(map->line_size), &(map->endian));
 	printf("%d\n", map->line_size);
 	row = 0;
 	while (row < map->y_size)
@@ -52,16 +52,7 @@ void	render_map(t_play *play, t_map *map)
 		}
 		row++;
 	}
-	mlx_put_image_to_window(play->mlx, play->win, map->img, 0, 0);
-}
-
-void	init_game(t_play *play)
-{
-	play->mlx = mlx_init();
-	play->win = mlx_new_window(play->mlx, WINDOW_W, WINDOW_H, "cub3d");
-	play->map.img = mlx_new_image(play->mlx, WINDOW_W, WINDOW_H);
-	render_map(play, &play->map);
-	mlx_loop(play->mlx);
+	mlx_put_image_to_window(play->mlx, play->win, map->image, 0, 0);
 }
 
 // int	main(int argc, char **argv)

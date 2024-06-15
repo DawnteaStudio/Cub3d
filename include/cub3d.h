@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/14 16:57:58 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/15 22:13:06 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@
 # define WINDOW_W (IMAGE_SIZE * MAP_COL_SIZE)
 
 // colors
-#define WHITE 0xffffff
-#define SKYBLUE 0x00ffff
-#define GREEN 0x0A3711
+# define WHITE 0xffffff
+# define SKYBLUE 0x00ffff
+# define GREEN 0x0A3711
 
 typedef enum e_key_move
 {
@@ -79,7 +79,8 @@ typedef enum e_error_type
 	ERROR_MAP_SIZE
 }	t_error_type;
 
-typedef struct s_image {
+typedef struct s_image
+{
 	char	*path;
 	void	*image;
 	int		width;
@@ -94,7 +95,7 @@ typedef struct s_map
 	int		direction;
 	int		ceiling[3];
 	int		floor[3];
-	void	*img;
+	void	*image;
 	int		*data;
 	int		bpp;
 	int		line_size;
@@ -103,39 +104,53 @@ typedef struct s_map
 	int		x_size;
 }	t_map;
 
-typedef struct s_play {
-	void	*mlx;
-	void	*win;
-	char	**origin;
-	t_image	images[4];
-	int		check_parsing;
-	int		height;
-	t_map	map;
-}	t_play;
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}	t_ray;
 
 typedef struct s_player
 {
 	double	x;
 	double	y;
 	int		player_size;
+	t_ray	player_ray;
+	double	walk_speed;
+	double	turn_speed;
 	// double	rota_angle;
-	// double	walk_speed;
-	// double	turn_speed;
 	// double	updown_sight;
 }	t_player;
 
-typedef struct s_node {
+typedef struct s_play
+{
+	void		*mlx;
+	void		*win;
+	char		**origin;
+	t_image		images[4];
+	int			check_parsing;
+	int			height;
+	t_map		map;
+	t_player	player;
+}	t_play;
+
+typedef struct s_node
+{
 	int				y;
 	int				x;
 	struct s_node	*next;
 }	t_node;
 
-typedef struct s_queue {
+typedef struct s_queue
+{
 	t_node	*front;
 	t_node	*back;
 }	t_queue;
 
-typedef struct s_search {
+typedef struct s_search
+{
 	int		*dy;
 	int		*dx;
 	int		idx;
@@ -184,6 +199,22 @@ t_node	*make_node(int y, int x);
 t_queue	*make_queue(void);
 
 /* exec */
+
+//init
 void	init_game(t_play *play);
+void	init_player(t_map *map, t_player *player);
+
+//free
+int		exit_game(t_play *play);
+
+//keypress
+int		key_press(int key, t_play *play);
+
+//render
+void	render_map(t_play *play, t_map *map);
+
+
+//logic
+int		main_loop(t_play *play);
 
 #endif
