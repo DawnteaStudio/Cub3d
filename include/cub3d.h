@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/15 22:13:06 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/16 22:18:05 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@
 # define IMAGE_SIZE 80
 
 # define MAP_ROW_SIZE 12
-# define WINDOW_H (IMAGE_SIZE * MAP_ROW_SIZE)
-
 # define MAP_COL_SIZE 20
-# define WINDOW_W (IMAGE_SIZE * MAP_COL_SIZE)
 
 // colors
 # define WHITE 0xffffff
@@ -108,8 +105,12 @@ typedef struct s_ray
 {
 	double	dir_x;
 	double	dir_y;
+	double	ray_x;
+	double	ray_y;
 	double	plane_x;
 	double	plane_y;
+	double	delta_x;
+	double	delta_y;
 }	t_ray;
 
 typedef struct s_player
@@ -117,7 +118,6 @@ typedef struct s_player
 	double	x;
 	double	y;
 	int		player_size;
-	t_ray	player_ray;
 	double	walk_speed;
 	double	turn_speed;
 	// double	rota_angle;
@@ -128,12 +128,15 @@ typedef struct s_play
 {
 	void		*mlx;
 	void		*win;
+	int			win_h;
+	int			win_w;
 	char		**origin;
 	t_image		images[4];
 	int			check_parsing;
 	int			height;
 	t_map		map;
 	t_player	player;
+	t_ray		ray;
 }	t_play;
 
 typedef struct s_node
@@ -202,16 +205,16 @@ t_queue	*make_queue(void);
 
 //init
 void	init_game(t_play *play);
-void	init_player(t_map *map, t_player *player);
+void	init_player(t_play *play);
 
 //free
 int		exit_game(t_play *play);
 
 //keypress
-int		key_press(int key, t_play *play);
+// int		key_press(int key, t_play *play);
 
 //render
-void	render_map(t_play *play, t_map *map);
+void	render_map(t_play *play);
 
 
 //logic

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:07:53 by erho              #+#    #+#             */
-/*   Updated: 2024/06/10 22:16:44 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/16 21:50:41 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_play	play;
 
+	ft_memset(&play, 0, sizeof(play));
 	if (argc != 2)
 		print_error(ERROR_STANDARD_INPUT);
 	initial_play(&play);
