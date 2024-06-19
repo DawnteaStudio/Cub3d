@@ -6,7 +6,7 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/15 22:08:49 by sewopark         ###   ########.fr        #
+#    Updated: 2024/06/19 22:02:32 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ MLXFLAG	= -framework OpenGL -framework AppKit
 
 PARSE	= check_file check_info extract_data main print_error play bfs \
 			queue check_map read search
-EXEC	= render free keypress init logic
+EXEC	= render free keypress init logic ray
 SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
 SRCS		= $(addsuffix .c, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))

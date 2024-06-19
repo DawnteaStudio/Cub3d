@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/16 22:18:05 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:42:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define FALSE 0
 
 # define MINIMAP 0.1
-# define IMAGE_SIZE 80
+# define IMAGE_SIZE 64
 
 # define MAP_ROW_SIZE 12
 # define MAP_COL_SIZE 20
@@ -39,6 +39,13 @@
 # define WHITE 0xffffff
 # define SKYBLUE 0x00ffff
 # define GREEN 0x0A3711
+
+//wall
+# define WALL_X 0
+# define WALL_Y 1
+
+//texture
+# define TEXTURE 64
 
 typedef enum e_key_move
 {
@@ -111,13 +118,22 @@ typedef struct s_ray
 	double	plane_y;
 	double	delta_x;
 	double	delta_y;
+	double	size_x;
+	double	size_y;
+	double	wall_dist;
+	int		wall;
 }	t_ray;
 
 typedef struct s_player
 {
 	double	x;
 	double	y;
+	int		step_x;
+	int		step_y;
 	int		player_size;
+	int		line_h;
+	int		draw_start;
+	int		draw_end;
 	double	walk_speed;
 	double	turn_speed;
 	// double	rota_angle;
@@ -216,8 +232,12 @@ int		exit_game(t_play *play);
 //render
 void	render_map(t_play *play);
 
-
 //logic
 int		main_loop(t_play *play);
+
+//ray
+void	ray_setting(t_play *play, int x);
+void	calc_size_dist_ray(t_play *play);
+void	calc_ray_hit(t_play *play);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 22:08:35 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/16 22:07:56 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:48:49 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	calc(t_play *play)
 	x = 0;
 	while (x < play->win_w)
 	{
-		
+		ray_setting(play, x);
+		calc_size_dist_ray(play);
+		calc_ray_hit(play);
 	}
 }
 

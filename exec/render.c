@@ -6,13 +6,18 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/16 22:11:02 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:37:05 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void fill_squares(t_play *play, int x, int y, int color)
+void	render_wall(int	x)
+{
+
+}
+
+void	fill_squares(t_play *play, int x, int y, int color)
 {
 	int i;
 	int j;
