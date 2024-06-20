@@ -6,15 +6,32 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/19 22:37:05 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:18:51 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	render_wall(int	x)
+void	render_wall(t_play *play)
 {
+	int	i;
+	int	j;
+	int	k;
 
+	i = 0;
+	k = 0;
+	while (i < play->win_h)
+	{
+		j = 0;
+		while (j < play->win_w)
+		{
+			play->map.data[k] = play->screen[i][j];
+			j++;
+			k++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(play->mlx, play->win, play->map.image, 0, 0);
 }
 
 void	fill_squares(t_play *play, int x, int y, int color)

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/19 22:42:01 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:25:35 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ typedef enum e_error_type
 typedef struct s_image
 {
 	char	*path;
-	void	*image;
+	int		*image;
+	int		bpp;
+	int		line_size;
+	int		endian;
 	int		width;
 	int		height;
 }	t_image;
@@ -108,6 +111,20 @@ typedef struct s_map
 	int		x_size;
 }	t_map;
 
+typedef struct s_wall
+{
+	int		draw_start;
+	int		draw_end;
+	int		line_h;
+	int		texture_x;
+	int		texture_y;
+	double	wall_dist;
+	double	wall_x;
+	int		collision_wall;
+	double	step;
+	double	texture_p;
+}	t_wall;
+
 typedef struct s_ray
 {
 	double	dir_x;
@@ -120,8 +137,6 @@ typedef struct s_ray
 	double	delta_y;
 	double	size_x;
 	double	size_y;
-	double	wall_dist;
-	int		wall;
 }	t_ray;
 
 typedef struct s_player
@@ -131,9 +146,6 @@ typedef struct s_player
 	int		step_x;
 	int		step_y;
 	int		player_size;
-	int		line_h;
-	int		draw_start;
-	int		draw_end;
 	double	walk_speed;
 	double	turn_speed;
 	// double	rota_angle;
@@ -146,6 +158,7 @@ typedef struct s_play
 	void		*win;
 	int			win_h;
 	int			win_w;
+	int			**screen;
 	char		**origin;
 	t_image		images[4];
 	int			check_parsing;
@@ -153,6 +166,7 @@ typedef struct s_play
 	t_map		map;
 	t_player	player;
 	t_ray		ray;
+	t_wall		wall;
 }	t_play;
 
 typedef struct s_node
@@ -227,10 +241,11 @@ void	init_player(t_play *play);
 int		exit_game(t_play *play);
 
 //keypress
-// int		key_press(int key, t_play *play);
+int		key_press(int key, t_play *play);
 
 //render
 void	render_map(t_play *play);
+void	render_wall(t_play *play);
 
 //logic
 int		main_loop(t_play *play);
@@ -239,5 +254,7 @@ int		main_loop(t_play *play);
 void	ray_setting(t_play *play, int x);
 void	calc_size_dist_ray(t_play *play);
 void	calc_ray_hit(t_play *play);
+void	calc_draw_height(t_play *play);
+void	calc_hit_point_texture(t_play *play, int x);
 
 #endif

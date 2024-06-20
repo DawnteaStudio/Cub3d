@@ -6,22 +6,45 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/19 22:08:04 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:24:07 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	init_texture(t_play *play)
+void	init_texture(t_play *play, void *tmp, int i)
 {
-	int	i;
+	play->images[i].image = (int *)mlx_get_data_addr(tmp, \
+	&(play->images[i].bpp), &(play->images[i].line_size), \
+	&(play->images[i].endian));
+	mlx_destroy_image(play->mlx, tmp);
+}
+
+void	init_screen(t_play *play)
+{
+	int		i;
+	void	*tmp_img;
 
 	i = 0;
 	while (i < 4)
 	{
-		play->images[i].image = mlx_xpm_file_to_image
+		tmp_img = mlx_xpm_file_to_image
 			(play->mlx, play->images[i].path, &play->images[i].width, \
 			&play->images[i].height);
+		if (tmp_img == NULL)
+			print_error(5);
+		init_texture(play, tmp_img, i);
+		i++;
+	}
+	i = 0;
+	play->screen = (int **)malloc(sizeof(int *) * play->win_h);
+	if (play->screen == NULL)
+		ft_error(MEMORY);
+	while (i < play->win_h)
+	{
+		play->screen[i] = (int *)malloc(sizeof(int) * play->win_w);
+		if (play->screen[i] == NULL)
+			ft_error(MEMORY);
 		i++;
 	}
 }
@@ -71,11 +94,13 @@ void	init_game(t_play *play)
 	play->mlx = mlx_init();
 	play->win = mlx_new_window(play->mlx, play->win_w, play->win_h, "cub3d");
 	play->map.image = mlx_new_image(play->mlx, play->win_w, play->win_h);
+	play->map.data = (int *)mlx_get_data_addr(play->map.image, \
+	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
 	// render_map(play);
-	init_texture(play);
+	init_screen(play);
 	init_player(play);
-	// mlx_loop_hook(play->mlx, &main_loop, play);
+	mlx_loop_hook(play->mlx, &main_loop, play);
 	mlx_hook(play->win, EXIT_BUTTON, 0, &exit_game, play);
-	// mlx_hook(play->win, KEY_PRESS, 0, &key_press, play);
+	mlx_hook(play->win, KEY_PRESS, 0, &key_press, play);
 	mlx_loop(play->mlx);
 }

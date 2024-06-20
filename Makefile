@@ -6,7 +6,7 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/19 22:02:32 by sewopark         ###   ########.fr        #
+#    Updated: 2024/06/20 22:30:50 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ $(MLX) :
 
 clean:
 	make clean -C libft
-	# make clean -C $(MLX_PATH)
+	make clean -C $(MLX_PATH)
 	$(RM) $(OBJS)
 	$(RM) $(DEPS)
 
