@@ -3,15 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/14 22:53:36 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/20 22:40:40 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# include <stdio.h>
+# include <stdlib.h>
+# include <math.h>
+# include <fcntl.h>
+# include "../libft/includes/libft.h"
+# include "../minilibx/mlx.h"
 
 // mac key codes
 # define LEFT_CLICK 1
@@ -22,12 +29,39 @@
 # define TRUE 1
 # define FALSE 0
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <math.h>
-# include <fcntl.h>
-# include "../libft/includes/libft.h"
-# include "../minilibx/mlx.h"
+# define MINIMAP 0.1
+# define IMAGE_SIZE 64
+
+# define MAP_ROW_SIZE 12
+# define MAP_COL_SIZE 20
+
+// colors
+# define WHITE 0xffffff
+# define SKYBLUE 0x00ffff
+# define GREEN 0x0A3711
+
+//wall
+# define WALL_X 0
+# define WALL_Y 1
+
+//texture
+# define TEXTURE 64
+
+typedef enum e_key_move
+{
+	KEY_A = 0,
+	KEY_S,
+	KEY_D,
+	KEY_W = 13
+}	t_key_move;
+
+typedef enum e_key_direct
+{
+	KEY_LEFT = 123,
+	KEY_RIGHT,
+	KEY_DOWN,
+	KEY_UP
+}	t_key_direct;
 
 typedef enum e_direction
 {
@@ -49,9 +83,13 @@ typedef enum e_error_type
 	ERROR_MAP_SIZE
 }	t_error_type;
 
-typedef struct s_image {
+typedef struct s_image
+{
 	char	*path;
-	void	*image;
+	int		*image;
+	int		bpp;
+	int		line_size;
+	int		endian;
 	int		width;
 	int		height;
 }	t_image;
@@ -64,32 +102,88 @@ typedef struct s_map
 	int		direction;
 	int		ceiling[3];
 	int		floor[3];
+	void	*image;
+	int		*data;
+	int		bpp;
+	int		line_size;
+	int		endian;
 	int		y_size;
 	int		x_size;
 }	t_map;
 
-typedef struct s_play {
-	void	*mlx;
-	void	*win;
-	char	**origin;
-	t_image	images[4];
-	int		check_parsing;
-	int		height;
-	t_map	map;
+typedef struct s_wall
+{
+	int		draw_start;
+	int		draw_end;
+	int		line_h;
+	int		texture_x;
+	int		texture_y;
+	double	wall_dist;
+	double	wall_x;
+	int		collision_wall;
+	double	step;
+	double	texture_p;
+}	t_wall;
+
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	double	ray_x;
+	double	ray_y;
+	double	plane_x;
+	double	plane_y;
+	double	delta_x;
+	double	delta_y;
+	double	size_x;
+	double	size_y;
+}	t_ray;
+
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	int		step_x;
+	int		step_y;
+	int		player_size;
+	double	walk_speed;
+	double	turn_speed;
+	// double	rota_angle;
+	// double	updown_sight;
+}	t_player;
+
+typedef struct s_play
+{
+	void		*mlx;
+	void		*win;
+	int			win_h;
+	int			win_w;
+	int			**screen;
+	char		**origin;
+	t_image		images[4];
+	int			check_parsing;
+	int			height;
+	t_map		map;
+	t_player	player;
+	t_ray		ray;
+	t_wall		wall;
 }	t_play;
 
-typedef struct s_node {
+typedef struct s_node
+{
 	int				y;
 	int				x;
 	struct s_node	*next;
 }	t_node;
 
-typedef struct s_queue {
+typedef struct s_queue
+{
 	t_node	*front;
 	t_node	*back;
 }	t_queue;
 
-typedef struct s_search {
+typedef struct s_search
+{
 	int		*dy;
 	int		*dx;
 	int		idx;
@@ -139,5 +233,31 @@ void	q_pop(t_queue *q);
 void	q_push(t_queue *q, t_node *node);
 t_node	*make_node(int y, int x);
 t_queue	*make_queue(void);
+
+/* exec */
+
+//init
+void	init_game(t_play *play);
+void	init_player(t_play *play);
+
+//free
+int		exit_game(t_play *play);
+
+//keypress
+int		key_press(int key, t_play *play);
+
+//render
+void	render_map(t_play *play);
+void	render_wall(t_play *play);
+
+//logic
+int		main_loop(t_play *play);
+
+//ray
+void	ray_setting(t_play *play, int x);
+void	calc_size_dist_ray(t_play *play);
+void	calc_ray_hit(t_play *play);
+void	calc_draw_height(t_play *play);
+void	calc_hit_point_texture(t_play *play, int x);
 
 #endif

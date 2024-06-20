@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   keypress.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 19:16:28 by erho              #+#    #+#             */
-/*   Updated: 2024/06/20 21:44:47 by sewopark         ###   ########.fr       */
+/*   Created: 2024/06/15 18:48:21 by sewopark          #+#    #+#             */
+/*   Updated: 2024/06/20 17:23:47 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "../include/cub3d.h"
 
-void	ft_error(int error_no)
+int	key_press(int key, t_play *play)
 {
-	if (error_no == MEMORY)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("memory allocation failed\n", 2);
-		exit(1);
-	}
+	if (key == ESC)
+		exit_game(play);
+	return (0);
 }

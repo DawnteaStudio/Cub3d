@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 19:16:28 by erho              #+#    #+#             */
-/*   Updated: 2024/06/20 21:44:47 by sewopark         ###   ########.fr       */
+/*   Created: 2024/06/15 19:26:25 by sewopark          #+#    #+#             */
+/*   Updated: 2024/06/19 22:04:16 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "../include/cub3d.h"
 
-void	ft_error(int error_no)
+int	exit_game(t_play *play)
 {
-	if (error_no == MEMORY)
-	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("memory allocation failed\n", 2);
-		exit(1);
-	}
+	if (play && play->map.image)
+		mlx_destroy_image(play->mlx, play->map.image);
+	if (play->win)
+		mlx_destroy_window(play->mlx, play->win);
+	exit(0);
+	return (0);
 }

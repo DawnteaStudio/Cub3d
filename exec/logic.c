@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   logic.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/18 19:16:28 by erho              #+#    #+#             */
-/*   Updated: 2024/06/20 21:44:47 by sewopark         ###   ########.fr       */
+/*   Created: 2024/06/15 22:08:35 by sewopark          #+#    #+#             */
+/*   Updated: 2024/06/20 22:18:57 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "../include/cub3d.h"
 
-void	ft_error(int error_no)
+void	calc(t_play *play)
 {
-	if (error_no == MEMORY)
+	int	x;
+
+	x = 0;
+	while (x < play->win_w)
 	{
-		ft_putstr_fd("Error\n", 2);
-		ft_putstr_fd("memory allocation failed\n", 2);
-		exit(1);
+		ray_setting(play, x);
+		calc_size_dist_ray(play);
+		calc_ray_hit(play);
+		calc_draw_height(play);
+		calc_hit_point_texture(play, x);
+		x++;
 	}
+	render_wall(play);
+}
+
+int	main_loop(t_play *play)
+{
+	calc(play);
+	return (0);
 }
