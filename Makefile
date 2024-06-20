@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
+#    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/16 00:01:58 by erho             ###   ########.fr        #
+<<<<<<< HEAD
+#    Updated: 2024/06/23 10:56:33 by sewopark         ###   ########.fr        #
+=======
+#    Updated: 2024/06/15 22:08:49 by sewopark         ###   ########.fr        #
+>>>>>>> 78fb13f... [Feat] mlx exercise to study
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +19,12 @@ INCLUDE	= include/
 CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
+MLXFLAG	= -framework OpenGL -framework AppKit
 
 PARSE	= check_file check_info extract_data main print_error play bfs \
-			queue check_map read search map_utils
-SRCSNAME	= $(addprefix parse/, $(PARSE))
+			queue check_map read search
+EXEC	= render free keypress init logic
+SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
 SRCS		= $(addsuffix .c, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))
 DEPS		= $(addsuffix .d, $(SRCSNAME))
@@ -30,7 +36,7 @@ MLX			= $(MLX_PATH)$(MLX_NAME)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(LIBFT) $(OBJS)  -o $(NAME)
+	$(CC) $(CFLAGS) $(LIBFT) $(OBJS) $(MLX) -o $(NAME) $(MLXFLAG)
 
 -include $(DEPS)
 
@@ -44,7 +50,7 @@ $(MLX) :
 
 clean:
 	make clean -C libft
-	make clean -C $(MLX_PATH)
+	# make clean -C $(MLX_PATH)
 	$(RM) $(OBJS)
 	$(RM) $(DEPS)
 
