@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/21 09:13:49 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:56:05 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	init_player(t_play *play)
 	play->player.player_size = 10;
 	play->player.x = (play->map.start_x) + 0.5;
 	play->player.y = (play->map.start_y) + 0.5;
-	play->player.walk_speed = 0.1;
+	play->player.walk_speed = 0.05;
 	play->player.turn_speed = 0.05;
 	init_player_direction(play);
 	play->map.field[play->map.start_y][play->map.start_x] = '0';

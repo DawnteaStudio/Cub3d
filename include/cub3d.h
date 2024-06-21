@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 10:59:16 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 10:59:46 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,6 @@ typedef struct s_player
 	int		player_size;
 	double	walk_speed;
 	double	turn_speed;
-	// double	rota_angle;
-	// double	updown_sight;
 }	t_player;
 
 typedef struct s_play

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 21:29:08 by erho              #+#    #+#             */
-/*   Updated: 2024/06/21 00:08:56 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 09:28:33 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	find_next_idx(t_map *m, int y, int x, int **visited)
 	return (FALSE);
 }
 
-void	visite(t_queue *queue, int y, int x, int **visited)
+void	visit(t_queue *queue, int y, int x, int **visited)
 {
 	q_push(queue, make_node(y, x));
 	visited[y][x] = 1;
@@ -58,7 +58,8 @@ void	find_component(t_map *m, int start_y, int start_x, int **visited)
 	t_search	search;
 
 	set_search(&search);
-	visite(search.queue, start_y, start_x, visited);
+	find_next_idx(m, start_y, start_x, visited);
+	visit(search.queue, start_y, start_x, visited);
 	while (search.queue->front != NULL)
 	{
 		search.idx = -1;
@@ -67,7 +68,7 @@ void	find_component(t_map *m, int start_y, int start_x, int **visited)
 			search.y = search.queue->front->y + search.dy[search.idx];
 			search.x = search.queue->front->x + search.dx[search.idx];
 			if (find_next_idx(m, search.y, search.x, visited) == TRUE)
-				visite(search.queue, search.y, search.x, visited);
+				visit(search.queue, search.y, search.x, visited);
 		}
 		q_pop(search.queue);
 	}
@@ -79,7 +80,7 @@ void	find_space(t_map *m, int start_y, int start_x, int **visited)
 	t_search	search;
 
 	set_search(&search);
-	visite(search.queue, start_y, start_x, visited);
+	visit(search.queue, start_y, start_x, visited);
 	while (search.queue->front != NULL)
 	{
 		search.idx = -1;
@@ -91,7 +92,7 @@ void	find_space(t_map *m, int start_y, int start_x, int **visited)
 				search.is_outside = TRUE;
 			else if (m->field[search.y][search.x] == ' '
 				&& !visited[search.y][search.x])
-				visite(search.queue, search.y, search.x, visited);
+				visit(search.queue, search.y, search.x, visited);
 		}
 		q_pop(search.queue);
 	}
