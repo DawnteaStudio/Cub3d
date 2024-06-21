@@ -6,7 +6,7 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/06 14:06:13 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/20 22:40:32 by sewopark         ###   ########.fr        #
+#    Updated: 2024/06/21 09:05:48 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ CFLAGS	= -Wall -Wextra -Werror
 MLXFLAG	= -framework OpenGL -framework AppKit
 
 PARSE	= check_file check_info extract_data main print_error play bfs \
-			queue check_map read search
-EXEC	= render free keypress init logic ray
+			queue check_map read search map_utils
+EXEC	= render free key init logic ray key_move key_event
 SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
 SRCS		= $(addsuffix .c, $(SRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))
@@ -46,7 +46,7 @@ $(MLX) :
 
 clean:
 	make clean -C libft
-	make clean -C $(MLX_PATH)
+	# make clean -C $(MLX_PATH)
 	$(RM) $(OBJS)
 	$(RM) $(DEPS)
 

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/20 22:40:40 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/21 09:08:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define LEFT_CLICK 1
 # define ESC 53
 # define KEY_PRESS 2
+# define KEY_RELEASE 3
 # define EXIT_BUTTON 17
 
 # define TRUE 1
@@ -33,7 +34,7 @@
 # define IMAGE_SIZE 64
 
 # define MAP_ROW_SIZE 12
-# define MAP_COL_SIZE 20
+# define MAP_COL_SIZE 16
 
 // colors
 # define WHITE 0xffffff
@@ -58,9 +59,7 @@ typedef enum e_key_move
 typedef enum e_key_direct
 {
 	KEY_LEFT = 123,
-	KEY_RIGHT,
-	KEY_DOWN,
-	KEY_UP
+	KEY_RIGHT
 }	t_key_direct;
 
 typedef enum e_direction
@@ -82,6 +81,16 @@ typedef enum e_error_type
 	ERROR_INVALID_INFO,
 	ERROR_MAP_SIZE
 }	t_error_type;
+
+typedef struct s_key
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int	left;
+	int	right;
+}	t_key;
 
 typedef struct s_image
 {
@@ -123,6 +132,7 @@ typedef struct s_wall
 	int		collision_wall;
 	double	step;
 	double	texture_p;
+	int		index;
 }	t_wall;
 
 typedef struct s_ray
@@ -167,6 +177,7 @@ typedef struct s_play
 	t_player	player;
 	t_ray		ray;
 	t_wall		wall;
+	t_key		key;
 }	t_play;
 
 typedef struct s_node
@@ -245,13 +256,16 @@ int		exit_game(t_play *play);
 
 //keypress
 int		key_press(int key, t_play *play);
+int		key_release(int key, t_play *play);
 
 //render
 void	render_map(t_play *play);
 void	render_wall(t_play *play);
+void	render_background(t_play *play);
 
 //logic
 int		main_loop(t_play *play);
+void	check_texture_index(t_play *play);
 
 //ray
 void	ray_setting(t_play *play, int x);
@@ -259,5 +273,15 @@ void	calc_size_dist_ray(t_play *play);
 void	calc_ray_hit(t_play *play);
 void	calc_draw_height(t_play *play);
 void	calc_hit_point_texture(t_play *play, int x);
+
+//key_move
+void	move_w(t_play *play);
+void	move_s(t_play *play);
+void	move_a(t_play *play);
+void	move_d(t_play *play);
+
+//key_event
+void	event_left(t_play *play);
+void	event_right(t_play *play);
 
 #endif

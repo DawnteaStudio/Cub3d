@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/20 22:18:51 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/21 01:29:27 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,43 @@ void	render_wall(t_play *play)
 {
 	int	i;
 	int	j;
-	int	k;
+	int	height;
 
 	i = 0;
-	k = 0;
+	height = 0;
 	while (i < play->win_h)
 	{
 		j = 0;
 		while (j < play->win_w)
 		{
-			play->map.data[k] = play->screen[i][j];
+			play->map.data[height] = play->screen[i][j];
 			j++;
-			k++;
+			height++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(play->mlx, play->win, play->map.image, 0, 0);
+}
+
+void	render_background(t_play *play)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < play->win_h)
+	{
+		j = 0;
+		while (j < play->win_w)
+		{
+			if (i < play->win_h / 2)
+				play->screen[i][j] = SKYBLUE;
+			else
+				play->screen[i][j] = GREEN;
+			j++;
+		}
+		i++;
+	}
 }
 
 void	fill_squares(t_play *play, int x, int y, int color)
