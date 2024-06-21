@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/21 01:29:27 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/21 12:18:36 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ void	render_background(t_play *play)
 {
 	int	i;
 	int	j;
+	int	ceil;
+	int	floor;
 
+	ceil = play->map.ceiling[0] << 16 \
+	| play->map.ceiling[1] << 8 | play->map.ceiling[2];
+	floor = play->map.floor[0] << 16 \
+	| play->map.floor[1] << 8 | play->map.floor[2];
 	i = 0;
 	while (i < play->win_h)
 	{
@@ -46,9 +52,9 @@ void	render_background(t_play *play)
 		while (j < play->win_w)
 		{
 			if (i < play->win_h / 2)
-				play->screen[i][j] = SKYBLUE;
+				play->screen[i][j] = ceil;
 			else
-				play->screen[i][j] = GREEN;
+				play->screen[i][j] = floor;
 			j++;
 		}
 		i++;

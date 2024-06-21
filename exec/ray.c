@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:49:17 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/21 01:35:59 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:43:11 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	calc_size_dist_ray(t_play *play)
 		play->player.step_x = -1;
 		tmp->size_x = (play->player.x - play->map.start_x) * tmp->delta_x;
 	}
-	else
+	else if (tmp->ray_x > 0)
 	{
 		play->player.step_x = 1;
 		tmp->size_x = (play->map.start_x + 1.0 - play->player.x) * tmp->delta_x;
@@ -51,7 +51,7 @@ void	calc_size_dist_ray(t_play *play)
 		play->player.step_y = -1;
 		tmp->size_y = (play->player.y - play->map.start_y) * tmp->delta_y;
 	}
-	else
+	else if (tmp->ray_y > 0)
 	{
 		play->player.step_y = 1;
 		tmp->size_y = (play->map.start_y + 1.0 - play->player.y) * tmp->delta_y;
@@ -79,10 +79,10 @@ void	calc_ray_hit(t_play *play)
 	}
 	if (play->wall.collision_wall == WALL_X)
 		play->wall.wall_dist = (play->map.start_x - play->player.x + \
-		(1 - play->player.step_x) / 2) / play->ray.ray_x;
+		(double)(1 - play->player.step_x) / 2) / play->ray.ray_x;
 	else
 		play->wall.wall_dist = (play->map.start_y - play->player.y + \
-		(1 - play->player.step_y) / 2) / play->ray.ray_y;
+		(double)(1 - play->player.step_y) / 2) / play->ray.ray_y;
 }
 
 void	calc_draw_height(t_play *play)
@@ -98,11 +98,8 @@ void	calc_draw_height(t_play *play)
 		play->wall.wall_x = play->player.y + play->wall.wall_dist \
 		* play->ray.ray_y;
 	else
-	{
 		play->wall.wall_x = play->player.x + play->wall.wall_dist \
 		* play->ray.ray_x;
-		
-	}
 	play->wall.wall_x -= floor(play->wall.wall_x);
 }
 
