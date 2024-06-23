@@ -6,15 +6,21 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:07:53 by erho              #+#    #+#             */
-/*   Updated: 2024/06/16 21:50:41 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:43:23 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+// void	f()
+// {
+// 	system("leaks cub3d");
+// }
+
 int	main(int argc, char **argv)
 {
 	t_play	play;
+	// atexit(f);
 
 	ft_memset(&play, 0, sizeof(play));
 	if (argc != 2)

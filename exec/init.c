@@ -6,31 +6,31 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 14:00:01 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:38:43 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	init_texture(t_play *play, void *tmp, int i)
+void	init_texture(t_play *play, void **tmp, int i)
 {
 	int	pixel;
 	int	*tmp_addr;
 
 	pixel = 0;
 	play->images[i].image = \
-	(int *)malloc(sizeof(int) * play->win_h * play->win_w);
+	(int *)malloc(sizeof(int) * TEXTURE * TEXTURE);
 	if (play->images->image == NULL)
 		ft_error(MEMORY);
-	tmp_addr = (int *)mlx_get_data_addr(tmp, \
+	tmp_addr = (int *)mlx_get_data_addr(*tmp, \
 	&(play->images[i].bpp), &(play->images[i].line_size), \
 	&(play->images[i].endian));
-	while (pixel < play->win_h * play->win_w)
+	while (pixel < (TEXTURE * TEXTURE))
 	{
-			play->images[i].image[pixel] = tmp_addr[pixel];
-			pixel++;
+		play->images[i].image[pixel] = tmp_addr[pixel];
+		pixel++;
 	}
-	mlx_destroy_image(play->mlx, tmp);
+	mlx_destroy_image(play->mlx, *tmp);
 }
 
 void	init_screen(t_play *play)
@@ -41,12 +41,12 @@ void	init_screen(t_play *play)
 	i = 0;
 	while (i < 4)
 	{
-		tmp_img = mlx_xpm_file_to_image
+		tmp_img = (int *)mlx_xpm_file_to_image
 			(play->mlx, play->images[i].path, &play->images[i].width, \
 			&play->images[i].height);
 		if (tmp_img == NULL)
 			ft_error(MEMORY);
-		init_texture(play, tmp_img, i);
+		init_texture(play, &tmp_img, i);
 		i++;
 	}
 	i = 0;
