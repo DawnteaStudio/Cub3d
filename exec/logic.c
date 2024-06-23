@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 22:08:35 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/21 09:24:38 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:00:35 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	calc(t_play *play)
 int	main_loop(t_play *play)
 {
 	calc(play);
-	render_map(play);
+	// render_map(play);
 	return (0);
 }

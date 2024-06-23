@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/21 11:56:05 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:00:01 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	init_screen(t_play *play)
 		i++;
 	}
 }
-
 
 void	init_player_direction(t_play *play)
 {

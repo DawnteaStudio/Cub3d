@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:49:17 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/21 11:43:11 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:00:45 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	calc_draw_height(t_play *play)
 		play->wall.draw_start = 0;
 	play->wall.draw_end = play->win_h / 2 + play->wall.line_h / 2;
 	if (play->wall.draw_end >= play->win_h)
-		play->wall.draw_end = play->win_h - 1;	
+		play->wall.draw_end = play->win_h - 1;
 	if (play->wall.collision_wall == WALL_X)
 		play->wall.wall_x = play->player.y + play->wall.wall_dist \
 		* play->ray.ray_y;
