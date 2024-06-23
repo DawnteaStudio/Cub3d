@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 22:08:35 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 14:59:20 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:41:25 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	check_keys(t_play *play)
 {
+	event_mouse(play);
 	if (play->key.w)
 		move_w(play);
 	if (play->key.a)
@@ -22,9 +23,9 @@ void	check_keys(t_play *play)
 		move_s(play);
 	if (play->key.d)
 		move_d(play);
-	if (play->key.left)
+	if (play->key.left || (play->player.mouse_x < play->win_w / 2 - (play->win_w * 0.3) && play->key.mouse_mode == TRUE))
 		event_left(play);
-	if (play->key.right)
+	if (play->key.right || (play->player.mouse_x > play->win_w / 2 + (play->win_w * 0.3) && play->key.mouse_mode == TRUE))
 		event_right(play);
 }
 

@@ -6,12 +6,11 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/23 15:59:15 by sewopark         ###   ########.fr        #
+#    Updated: 2024/06/23 17:48:34 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3d
-BNAME	= cub3d_bonus
 INCLUDE	= include/
 CC		= cc
 RM		= rm -f
@@ -38,11 +37,9 @@ MLX			= $(MLX_PATH)$(MLX_NAME)
 ifdef WITH_BONUS
 	OBJ_SWITCH = $(BOBJS)
 	REMOVE = $(OBJS)
-	NAME = cub3d_bonus
 else
 	OBJ_SWITCH = $(OBJS)
 	REMOVE = $(BOBJS)
-	NAME = cub3d
 endif
 
 all: $(NAME)
@@ -71,7 +68,7 @@ clean:
 	$(info Starting clean...)
 	@make clean -C libft
 	$(info Cleaning libft...)
-	@make clean -C $(MLX_PATH)
+	# @make clean -C $(MLX_PATH)
 	$(info Cleaning mlx...)
 	@$(RM) $(OBJS)
 	@$(RM) $(BOBJS)
@@ -84,7 +81,6 @@ fclean: clean
 	@make fclean -C libft
 	$(info fcleaning game...)
 	@$(RM) $(NAME)
-	@$(RM) $(BNAME)
 
 re:
 	@make fclean

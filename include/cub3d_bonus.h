@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 10:59:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:42:58 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ typedef enum e_key_move
 	KEY_A = 0,
 	KEY_S,
 	KEY_D,
-	KEY_W = 13
+	KEY_Q = 12,
+	KEY_W,
+	KEY_SPACE = 49
 }	t_key_move;
 
 typedef enum e_key_direct
@@ -90,6 +92,7 @@ typedef struct s_key
 	int	d;
 	int	left;
 	int	right;
+	int	mouse_mode;
 }	t_key;
 
 typedef struct s_image
@@ -155,6 +158,8 @@ typedef struct s_player
 	double	y;
 	int		step_x;
 	int		step_y;
+	int		mouse_x;
+	int		mouse_y;
 	int		player_size;
 	double	walk_speed;
 	double	turn_speed;
@@ -281,5 +286,6 @@ void	move_d(t_play *play);
 //key_event
 void	event_left(t_play *play);
 void	event_right(t_play *play);
+void	event_mouse(t_play *play);
 
 #endif
