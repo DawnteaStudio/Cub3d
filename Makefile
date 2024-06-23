@@ -6,7 +6,7 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/23 15:31:45 by sewopark         ###   ########.fr        #
+#    Updated: 2024/06/23 15:59:15 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,9 @@ clean:
 
 fclean: clean
 	$(info Starting fclean...)
+	$(info fcleaning libft...)
 	@make fclean -C libft
+	$(info fcleaning game...)
 	@$(RM) $(NAME)
 	@$(RM) $(BNAME)
 
