@@ -1,20 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 15:57:19 by sewopark          #+#    #+#             */
-/*   Updated: 2024/05/03 16:29:13 by sewopark         ###   ########.fr       */
+/*   Created: 2024/06/15 19:26:25 by sewopark          #+#    #+#             */
+/*   Updated: 2024/06/23 14:59:03 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
-int	main(int argc, char **argv)
+int	exit_game(t_play *play)
 {
-	(void)argc;
-	(void)argv;
-	printf("test\n");
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(play->images[i].image);
+		i++;
+	}
+	i = 0;
+	while (i < play->win_h)
+	{
+		free(play->screen[i]);
+		i++;
+	}
+	free(play->screen);
+	if (play && play->map.image)
+		mlx_destroy_image(play->mlx, play->map.image);
+	if (play->win)
+		mlx_destroy_window(play->mlx, play->win);
+	exit(0);
+	return (0);
 }

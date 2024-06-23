@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
+#    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/17 15:59:02 by erho              #+#    #+#              #
-#    Updated: 2024/05/09 05:20:28 by erho             ###   ########.fr        #
+#    Updated: 2024/06/23 15:15:17 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,19 +23,19 @@ HDIR = includes
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	ar rc $(NAME) $(OBJS)
+	@ar rc $(NAME) $(OBJS)
 
 %.o : %.c
-	cc $(CFLAGS) -c $< -o $@ -I${HDIR}
+	@cc $(CFLAGS) -c $< -o $@ -I${HDIR}
 
 clean :
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean : clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re :
-	make fclean
-	make all
+	@make fclean
+	@make all
 
 .PHONY : all clean fclean re
