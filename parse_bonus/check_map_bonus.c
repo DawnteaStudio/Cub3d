@@ -19,7 +19,7 @@ void	find_target(int y, int x, int **visited, t_map *m)
 	c = m->field[y][x];
 	if (c == '1' || visited[y][x])
 		return ;
-	if (c == '0' || (c == 'N' || c == 'S' || c == 'W' || c == 'E'))
+	if (c == '0' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'D')
 		find_component(m, y, x, visited);
 	else if (c == ' ')
 		find_space(m, y, x, visited);
