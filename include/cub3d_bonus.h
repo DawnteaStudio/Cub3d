@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 18:42:58 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/25 21:13:00 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,20 @@ typedef struct s_key
 	int	mouse_mode;
 }	t_key;
 
+typedef struct s_door
+{
+	int		*image;
+	int		bpp;
+	int		line_size;
+	int		endian;
+	int		width;
+	int		height;
+	double	wall_dist;
+	int		line_h;
+	int		draw_start;
+	int		draw_end;
+}	t_door;
+
 typedef struct s_image
 {
 	char	*path;
@@ -150,6 +164,7 @@ typedef struct s_ray
 	double	delta_y;
 	double	size_x;
 	double	size_y;
+	int		is_door;
 }	t_ray;
 
 typedef struct s_player
@@ -181,6 +196,7 @@ typedef struct s_play
 	t_ray		ray;
 	t_wall		wall;
 	t_key		key;
+	t_door		door;
 }	t_play;
 
 typedef struct s_node
@@ -287,5 +303,9 @@ void	move_d(t_play *play);
 void	event_left(t_play *play);
 void	event_right(t_play *play);
 void	event_mouse(t_play *play);
+
+//sprite
+void	change_sprite(t_play *play);
+void	init_sprite(t_play *play);
 
 #endif

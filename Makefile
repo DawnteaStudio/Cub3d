@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
+#    By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/23 17:48:34 by sewopark         ###   ########.fr        #
+#    Updated: 2024/06/26 03:46:09 by parksewon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ MLXFLAG	= -framework OpenGL -framework AppKit
 
 PARSE	= check_file check_info extract_data main print_error play bfs \
 			queue check_map read search map_utils
-EXEC	= render free key init logic ray key_move key_event
+EXEC	= render free key init logic ray key_move key_event sprite
 SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
 BSRCSNAME	= $(addprefix parse_bonus/, $(addsuffix _bonus, $(PARSE))) \
 			$(addprefix exec_bonus/, $(addsuffix _bonus, $(EXEC)))
@@ -68,7 +68,7 @@ clean:
 	$(info Starting clean...)
 	@make clean -C libft
 	$(info Cleaning libft...)
-	# @make clean -C $(MLX_PATH)
+	@make clean -C $(MLX_PATH)
 	$(info Cleaning mlx...)
 	@$(RM) $(OBJS)
 	@$(RM) $(BOBJS)

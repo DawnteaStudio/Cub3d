@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   logic_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 22:08:35 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 18:41:25 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/25 21:20:50 by parksewon        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,25 @@ void	check_keys(t_play *play)
 
 void	check_texture_index(t_play *play)
 {
-	if (play->wall.collision_wall == WALL_X)
+	if (play->ray.is_door == FALSE)
 	{
-		if (play->ray.ray_x < 0)
-			play->wall.index = EAST;
+		if (play->wall.collision_wall == WALL_X)
+		{
+			if (play->ray.ray_x < 0)
+				play->wall.index = EAST;
+			else
+				play->wall.index = WEST;
+		}
 		else
-			play->wall.index = WEST;
+		{
+			if (play->ray.ray_y < 0)
+				play->wall.index = SOUTH;
+			else
+				play->wall.index = NORTH;
+		}
 	}
 	else
-	{
-		if (play->ray.ray_y < 0)
-			play->wall.index = SOUTH;
-		else
-			play->wall.index = NORTH;
-	}
+		return ;
 }
 
 void	calc(t_play *play)
@@ -54,6 +59,8 @@ void	calc(t_play *play)
 	x = 0;
 	mlx_clear_window(play->mlx, play->win);
 	render_background(play);
+	// init_sprite(play);
+	// change_sprite(play);
 	while (x < play->win_w)
 	{
 		ray_setting(play, x);
@@ -63,8 +70,8 @@ void	calc(t_play *play)
 		calc_hit_point_texture(play, x);
 		x++;
 	}
-	check_keys(play);
 	render_wall(play);
+	check_keys(play);
 }
 
 int	main_loop(t_play *play)
