@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 10:59:46 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 01:24:25 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,11 @@ void	make_field(t_play *p, int idx);
 // bfs
 void	find_component(t_map *m, int start_y, int start_x, int **visited);
 void	find_space(t_map *m, int start_y, int start_x, int **visited);
+
+// bfs_utils
+int		check_range(int y, int x, t_map *m);
+int		find_next_idx(t_map *m, int y, int x, int **visited);
+void	visit(t_queue *queue, int y, int x, int **visited);
 
 // play
 void	initial_play(t_play *play);

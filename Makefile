@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
+#    By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/23 18:13:40 by erho             ###   ########.fr        #
+#    Updated: 2024/06/26 01:24:21 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,11 @@ MLXFLAG	= -framework OpenGL -framework AppKit
 PARSE	= check_file check_info extract_data main print_error play bfs \
 			queue check_map read search map_utils
 EXEC	= render free key init logic ray key_move key_event
+BPARSE	= $(addsuffix _bonus, $(PARSE)) bfs_utils_bonus
+BEXEC	= $(addsuffix _bonus, $(EXEC))
 SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
-BSRCSNAME	= $(addprefix parse_bonus/, $(addsuffix _bonus, $(PARSE))) \
-			$(addprefix exec_bonus/, $(addsuffix _bonus, $(EXEC)))
+BSRCSNAME	= $(addprefix parse_bonus/, $(BPARSE)) \
+			$(addprefix exec_bonus/, $(BEXEC))
 SRCS		= $(addsuffix .c, $(SRCSNAME))
 BSRCS		= $(addsuffix .c, $(BSRCSNAME))
 OBJS		= $(addsuffix .o, $(SRCSNAME))
