@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 22:08:35 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 21:02:24 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:09:06 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_keys(t_play *play)
 	if (play->key.mouse_mode == TRUE)
 	{
 		mlx_put_image_to_window(play->mlx, play->win, play->cursor.image, \
-		play->player.mouse_x - 4, play->player.mouse_y - 4);
+		play->player.mouse_x - 32, play->player.mouse_y - 32);
 	}
 }
 
