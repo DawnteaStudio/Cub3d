@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 01:23:35 by erho              #+#    #+#             */
-/*   Updated: 2024/06/26 01:23:37 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/26 14:59:39 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_range(int y, int x, t_map *m)
 
 int check_door(t_map *m, int y, int x, int **visited)
 {
-	if (m->field[y][x] == 'D' && !visited[y][x])
+	if ((m->field[y][x] == 'd' || m->field[y][x] == 'D') && !visited[y][x])
 	{
 		if (!check_range(y - 1, x, m) && !check_range(y + 1, x, m))
 		{
