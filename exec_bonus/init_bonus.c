@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 16:17:12 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:38:59 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	init_game(t_play *play)
 	play->mlx = mlx_init();
 	play->win = mlx_new_window(play->mlx, play->win_w, play->win_h, "cub3d");
 	play->map.image = mlx_new_image(play->mlx, play->win_w, play->win_h);
-	play->door.close_image = mlx_xpm_file_to_image(play->mlx,\
-	 "./textures/portal7_closed.xpm", &play->door.width, &play->door.height);
+	play->door.close_image = mlx_xpm_file_to_image(play->mlx, \
+	"./textures/portal7_closed.xpm", &play->door.width, &play->door.height);
 	play->door.close = (int *)malloc(sizeof(int) * TEXTURE * TEXTURE);
 	if (play->door.close == NULL)
 		ft_error(MEMORY);
