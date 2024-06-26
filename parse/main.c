@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:07:53 by erho              #+#    #+#             */
-/*   Updated: 2024/06/23 18:13:44 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/26 15:04:04 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ int	main(int argc, char **argv)
 		print_error(ERROR_INVALID_FILE);
 	set_height(&play);
 	is_valid_info(&play);
-	// printf("============== test ==============\n");
-	// for (int i=0; i<(int)play.map.y_size; i++)
-	// 	printf("%s.\n", play.map.field[i]);
-	// printf("============== test ==============\n");
 	init_game(&play);
 	return (0);
 }

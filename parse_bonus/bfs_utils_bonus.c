@@ -6,7 +6,7 @@
 /*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 01:23:35 by erho              #+#    #+#             */
-/*   Updated: 2024/06/26 14:59:39 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/26 15:02:17 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_range(int y, int x, t_map *m)
 	return (FALSE);
 }
 
-int check_door(t_map *m, int y, int x, int **visited)
+int	check_door(t_map *m, int y, int x, int **visited)
 {
 	if ((m->field[y][x] == 'd' || m->field[y][x] == 'D') && !visited[y][x])
 	{
@@ -47,7 +47,7 @@ int	find_next_idx(t_map *m, int y, int x, int **visited)
 	if (m->field[y][x] == '0' && !visited[y][x])
 		return (TRUE);
 	if ((m->field[y][x] == 'N' || m->field[y][x] == 'S' || m->field[y][x] == 'W'
-		 || m->field[y][x] == 'E') && !visited[y][x])
+		|| m->field[y][x] == 'E') && !visited[y][x])
 	{
 		if (m->start_x != -1)
 			print_error(ERROR_INVALID_MAP);
