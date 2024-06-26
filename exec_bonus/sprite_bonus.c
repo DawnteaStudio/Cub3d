@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:51:13 by parksewon         #+#    #+#             */
-/*   Updated: 2024/06/26 15:58:25 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:00:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,9 @@ void	get_sprite(t_play *play, char *path)
 {
 	void	*tmp_img;
 
-	if (play->door.image != NULL)
-		free(play->door.image);
-	play->door.image = (int *)malloc(sizeof(int) * TEXTURE * TEXTURE);
 	tmp_img = (int *)mlx_xpm_file_to_image(play->mlx, path, \
 	&play->door.width, &play->door.height);
-	if (play->door.image == NULL || tmp_img == NULL)
+	if (tmp_img == NULL)
 		ft_error(MEMORY);
 	play->door.image = (int *)mlx_get_data_addr(tmp_img, &(play->door.bpp), \
 	&(play->door.line_size), &(play->door.endian));

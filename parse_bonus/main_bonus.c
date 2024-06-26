@@ -3,24 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:07:53 by erho              #+#    #+#             */
-/*   Updated: 2024/06/26 15:04:10 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/26 20:03:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d_bonus.h"
 
-// void	f()
-// {
-// 	system("leaks cub3d");
-// }
-
 int	main(int argc, char **argv)
 {
 	t_play	play;
-	// atexit(f);
 
 	ft_memset(&play, 0, sizeof(play));
 	if (argc != 2)

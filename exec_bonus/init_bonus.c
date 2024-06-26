@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 16:38:59 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:46:36 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	init_player_direction(t_play *play)
 
 void	init_player(t_play *play)
 {
-	play->key.mouse_mode = TRUE;
 	play->player.player_size = 10;
 	play->player.x = (play->map.start_x) + 0.5;
 	play->player.y = (play->map.start_y) + 0.5;
@@ -110,15 +109,13 @@ void	init_game(t_play *play)
 	play->map.image = mlx_new_image(play->mlx, play->win_w, play->win_h);
 	play->door.close_image = mlx_xpm_file_to_image(play->mlx, \
 	"./textures/portal7_closed.xpm", &play->door.width, &play->door.height);
-	play->door.close = (int *)malloc(sizeof(int) * TEXTURE * TEXTURE);
-	if (play->door.close == NULL)
-		ft_error(MEMORY);
 	play->door.close = (int *)mlx_get_data_addr(play->door.close_image, \
 	&(play->door.bpp), &(play->door.line_size), &(play->door.endian));
 	play->map.data = (int *)mlx_get_data_addr(play->map.image, \
 	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
 	init_screen(play);
 	init_player(play);
+	init_mini_map(play);
 	mlx_loop_hook(play->mlx, &main_loop, play);
 	mlx_hook(play->win, EXIT_BUTTON, 0, &exit_game, play);
 	mlx_hook(play->win, KEY_PRESS, 0, &key_press, play);
