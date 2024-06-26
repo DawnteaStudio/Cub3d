@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 19:38:37 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:00:23 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	init_mini_map(t_play *play)
 	play->mini.image = mlx_new_image(play->mlx, 8 * 21, 8 * 21);
 	play->mini.data = (int *)mlx_get_data_addr(play->mini.image, \
 	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
+	if (play->mini.data == NULL)
+		ft_error(MEMORY);
 }
 
 void	render_map(t_play *play)

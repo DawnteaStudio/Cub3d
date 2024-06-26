@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 20:46:36 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:02:29 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_texture(t_play *play, void **tmp, int i)
 	tmp_addr = (int *)mlx_get_data_addr(*tmp, \
 	&(play->images[i].bpp), &(play->images[i].line_size), \
 	&(play->images[i].endian));
+	if (tmp_addr == NULL)
+		ft_error(MEMORY);
 	while (pixel < (TEXTURE * TEXTURE))
 	{
 		play->images[i].image[pixel] = tmp_addr[pixel];
@@ -111,8 +113,12 @@ void	init_game(t_play *play)
 	"./textures/portal7_closed.xpm", &play->door.width, &play->door.height);
 	play->door.close = (int *)mlx_get_data_addr(play->door.close_image, \
 	&(play->door.bpp), &(play->door.line_size), &(play->door.endian));
+	if (play->door.close == NULL)
+		ft_error(MEMORY);
 	play->map.data = (int *)mlx_get_data_addr(play->map.image, \
 	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
+	if (play->map.data == NULL)
+		ft_error(MEMORY);
 	init_screen(play);
 	init_player(play);
 	init_mini_map(play);

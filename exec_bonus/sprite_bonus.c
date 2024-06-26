@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:51:13 by parksewon         #+#    #+#             */
-/*   Updated: 2024/06/26 20:00:29 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:02:51 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	get_sprite(t_play *play, char *path)
 		ft_error(MEMORY);
 	play->door.image = (int *)mlx_get_data_addr(tmp_img, &(play->door.bpp), \
 	&(play->door.line_size), &(play->door.endian));
+	if (play->door.image == NULL)
+		ft_error(MEMORY);
 }
 
 void	change_sprite(t_play *play)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 18:15:54 by erho             ###   ########.fr       */
+/*   Updated: 2024/06/26 22:01:34 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_texture(t_play *play, void **tmp, int i)
 	tmp_addr = (int *)mlx_get_data_addr(*tmp, \
 	&(play->images[i].bpp), &(play->images[i].line_size), \
 	&(play->images[i].endian));
+	if (tmp_addr == NULL)
+		ft_error(MEMORY);
 	while (pixel < (TEXTURE * TEXTURE))
 	{
 		play->images[i].image[pixel] = tmp_addr[pixel];
@@ -109,6 +111,8 @@ void	init_game(t_play *play)
 	play->map.image = mlx_new_image(play->mlx, play->win_w, play->win_h);
 	play->map.data = (int *)mlx_get_data_addr(play->map.image, \
 	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
+	if (play->map.data == NULL)
+		ft_error(MEMORY);
 	init_screen(play);
 	init_player(play);
 	mlx_loop_hook(play->mlx, &main_loop, play);
