@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 21:16:04 by erho              #+#    #+#             */
-/*   Updated: 2024/06/26 13:34:54 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:02:48 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	find_target(int y, int x, int **visited, t_map *m)
 	c = m->field[y][x];
 	if (c == '1' || visited[y][x])
 		return ;
-	if (c == '0' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'D')
+	if (c == '0' || c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'D'
+		|| c == 'd')
 		find_component(m, y, x, visited);
 	else if (c == ' ')
 		find_space(m, y, x, visited);
