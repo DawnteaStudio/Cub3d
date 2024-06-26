@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 18:37:23 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:17:12 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,13 @@ void	init_game(t_play *play)
 	play->mlx = mlx_init();
 	play->win = mlx_new_window(play->mlx, play->win_w, play->win_h, "cub3d");
 	play->map.image = mlx_new_image(play->mlx, play->win_w, play->win_h);
+	play->door.close_image = mlx_xpm_file_to_image(play->mlx,\
+	 "./textures/portal7_closed.xpm", &play->door.width, &play->door.height);
+	play->door.close = (int *)malloc(sizeof(int) * TEXTURE * TEXTURE);
+	if (play->door.close == NULL)
+		ft_error(MEMORY);
+	play->door.close = (int *)mlx_get_data_addr(play->door.close_image, \
+	&(play->door.bpp), &(play->door.line_size), &(play->door.endian));
 	play->map.data = (int *)mlx_get_data_addr(play->map.image, \
 	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
 	init_screen(play);

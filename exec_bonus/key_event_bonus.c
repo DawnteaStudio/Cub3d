@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 09:01:23 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 13:37:50 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:52:52 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	event_right(t_play *play)
 void	event_mouse(t_play *play)
 {
 	if (play->key.mouse_mode == TRUE)
-		mlx_mouse_get_pos(play->win, &play->player.mouse_x, &play->player.mouse_y);
+	{
+		mlx_mouse_get_pos(play->win, \
+		&play->player.mouse_x, &play->player.mouse_y);
+	}
 	else
 		mlx_mouse_show();
 }
