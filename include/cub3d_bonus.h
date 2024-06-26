@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 21:02:12 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:18:51 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ typedef struct s_cursor
 	int		width;
 	int		height;
 }	t_cursor;
-
 
 typedef struct s_door
 {
