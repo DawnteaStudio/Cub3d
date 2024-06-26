@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erho <erho@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 21:18:51 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:30:34 by erho             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define GREEN 0x0A3711
 # define BLACK 0x000000
 # define GRAY 0x738087
-# define PLAYER 0x0099a4
+# define PLAYER 0xff0000
 
 //wall
 # define WALL_X 0
