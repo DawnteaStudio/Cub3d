@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:49:41 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 14:59:09 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:37:23 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	init_player_direction(t_play *play)
 
 void	init_player(t_play *play)
 {
+	play->key.mouse_mode = TRUE;
 	play->player.player_size = 10;
 	play->player.x = (play->map.start_x) + 0.5;
 	play->player.y = (play->map.start_y) + 0.5;
