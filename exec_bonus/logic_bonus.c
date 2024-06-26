@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   logic_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 22:08:35 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/25 21:20:50 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/06/26 14:03:07 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	check_texture_index(t_play *play)
 				play->wall.index = NORTH;
 		}
 	}
-	else
-		return ;
 }
 
 void	calc(t_play *play)
@@ -59,8 +57,8 @@ void	calc(t_play *play)
 	x = 0;
 	mlx_clear_window(play->mlx, play->win);
 	render_background(play);
-	// init_sprite(play);
-	// change_sprite(play);
+	change_sprite(play);
+	play->ray.is_door = FALSE;
 	while (x < play->win_w)
 	{
 		ray_setting(play, x);
@@ -71,6 +69,7 @@ void	calc(t_play *play)
 		x++;
 	}
 	render_wall(play);
+	render_sprite(play);
 	check_keys(play);
 }
 
