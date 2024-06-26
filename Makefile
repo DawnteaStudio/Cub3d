@@ -6,7 +6,7 @@
 #    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/26 15:55:30 by sewopark         ###   ########.fr        #
+#    Updated: 2024/06/26 20:48:08 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ PARSE	= check_file check_info extract_data main print_error play bfs \
 			queue check_map read search map_utils
 EXEC	= render free key init logic ray key_move key_event
 BPARSE	= $(addsuffix _bonus, $(PARSE)) bfs_utils_bonus
-BEXEC	= $(addsuffix _bonus, $(EXEC)) sprite_bonus door_bonus
+BEXEC	= $(addsuffix _bonus, $(EXEC)) sprite_bonus door_bonus cursor_bonus
 SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
 BSRCSNAME	= $(addprefix parse_bonus/, $(BPARSE)) \
 			$(addprefix exec_bonus/, $(BEXEC))
@@ -38,10 +38,10 @@ MLX			= $(MLX_PATH)$(MLX_NAME)
 
 ifdef WITH_BONUS
 	OBJ_SWITCH = $(BOBJS)
-	REMOVE = $(OBJS)
+	REMOVE = $(OBJS) $(DEPS)
 else
 	OBJ_SWITCH = $(OBJS)
-	REMOVE = $(BOBJS)
+	REMOVE = $(BOBJS) $(BDEPS)
 endif
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 16:08:38 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:02:12 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 # define WHITE 0xffffff
 # define SKYBLUE 0x00ffff
 # define GREEN 0x0A3711
+# define BLACK 0x000000
+# define GRAY 0x738087
+# define PLAYER 0x0099a4
 
 //wall
 # define WALL_X 0
@@ -96,6 +99,17 @@ typedef struct s_key
 	int	mouse_mode;
 }	t_key;
 
+typedef struct s_cursor
+{
+	void	*image;
+	int		bpp;
+	int		line_size;
+	int		endian;
+	int		width;
+	int		height;
+}	t_cursor;
+
+
 typedef struct s_door
 {
 	int		*image;
@@ -135,6 +149,19 @@ typedef struct s_map
 	int		y_size;
 	int		x_size;
 }	t_map;
+
+typedef struct s_mini
+{
+	void	*image;
+	int		*data;
+	int		row_start;
+	int		row_end;
+	int		col_start;
+	int		col_end;
+	int		bpp;
+	int		line_size;
+	int		endian;
+}	t_mini;
 
 typedef struct s_wall
 {
@@ -191,11 +218,13 @@ typedef struct s_play
 	int			check_parsing;
 	int			height;
 	t_map		map;
+	t_mini		mini;
 	t_player	player;
 	t_ray		ray;
 	t_wall		wall;
 	t_key		key;
 	t_door		door;
+	t_cursor	cursor;
 }	t_play;
 
 typedef struct s_node
@@ -285,10 +314,13 @@ int		key_release(int key, t_play *play);
 void	render_map(t_play *play);
 void	render_wall(t_play *play);
 void	render_background(t_play *play);
+void	fill_squares(t_play *play, int x, int y, int color);
 
 //logic
 int		main_loop(t_play *play);
 void	check_texture_index(t_play *play);
+void	init_mini_map(t_play *play);
+void	check_mini_maps(t_play *play, int row, int col);
 
 //ray
 void	ray_setting(t_play *play, int x);
@@ -316,5 +348,8 @@ void	get_sprite(t_play *play, char *path);
 
 //door
 void	click_door(t_play *play);
+
+//cursor
+void	change_cursor1(t_play *play);
 
 #endif

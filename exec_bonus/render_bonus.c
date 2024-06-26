@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 14:20:59 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 19:38:37 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,23 @@ void	fill_squares(t_play *play, int x, int y, int color)
 	int	j;
 
 	j = 0;
-	while (j < (int)(MINIMAP * IMAGE_SIZE))
+	while (j < 8)
 	{
 		i = 0;
-		while (i < (int)(MINIMAP * IMAGE_SIZE))
+		while (i < 8)
 		{
-			play->map.data[play->win_w * (y + j) + (x + i)] = color;
+			play->mini.data[(21 * 8) * (y + j) + (x + i)] = color;
 			i++;
 		}
 		j++;
 	}
+}
+
+void	init_mini_map(t_play *play)
+{
+	play->mini.image = mlx_new_image(play->mlx, 8 * 21, 8 * 21);
+	play->mini.data = (int *)mlx_get_data_addr(play->mini.image, \
+	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
 }
 
 void	render_map(t_play *play)
@@ -85,26 +92,16 @@ void	render_map(t_play *play)
 	int	col;
 	int	row;
 
-	play->map.data = (int *)mlx_get_data_addr(play->map.image, \
-	&(play->map.bpp), &(play->map.line_size), &(play->map.endian));
 	row = 0;
-	while (row < play->map.y_size)
+	while (row < play->mini.row_end - play->mini.row_start)
 	{
 		col = 0;
-		while (col < (int)ft_strlen(play->map.field[row]))
+		while (col < play->mini.col_end - play->mini.col_start)
 		{
-			if (play->map.field[row][col] == '1')
-				fill_squares(play, (int)(MINIMAP * IMAGE_SIZE * col), \
-				(int)(MINIMAP * IMAGE_SIZE * row), GREEN);
-			else if (play->map.field[row][col] == '0')
-				fill_squares(play, (int)(MINIMAP * IMAGE_SIZE * col), \
-				(int)(MINIMAP * IMAGE_SIZE * row), WHITE);
-			else
-				fill_squares(play, (int)(MINIMAP * IMAGE_SIZE * col), \
-				(int)(MINIMAP * IMAGE_SIZE * row), SKYBLUE);
+			check_mini_maps(play, row, col);
 			col++;
 		}
 		row++;
 	}
-	mlx_put_image_to_window(play->mlx, play->win, play->map.image, 0, 0);
+	mlx_put_image_to_window(play->mlx, play->win, play->mini.image, 0, 0);
 }
