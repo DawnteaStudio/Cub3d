@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 18:48:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 14:59:12 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/23 18:36:55 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	key_press(int key, t_play *play)
 		play->key.left = 1;
 	if (key == KEY_RIGHT)
 		play->key.right = 1;
+	// if (key == KEY_Q)
+	// 	play->key.mouse_mode ^= 1;
 	if (key == ESC)
 		exit_game(play);
 	return (0);

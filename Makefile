@@ -3,15 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: erho <erho@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/26 01:24:21 by erho             ###   ########.fr        #
+#    Updated: 2024/06/26 13:34:33 by sewopark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= cub3d
-BNAME	= cub3d_bonus
 INCLUDE	= include/
 CC		= cc
 RM		= rm -f
@@ -22,7 +21,7 @@ PARSE	= check_file check_info extract_data main print_error play bfs \
 			queue check_map read search map_utils
 EXEC	= render free key init logic ray key_move key_event
 BPARSE	= $(addsuffix _bonus, $(PARSE)) bfs_utils_bonus
-BEXEC	= $(addsuffix _bonus, $(EXEC))
+BEXEC	= $(addsuffix _bonus, $(EXEC)) sprite_bonus
 SRCSNAME	= $(addprefix parse/, $(PARSE)) $(addprefix exec/, $(EXEC))
 BSRCSNAME	= $(addprefix parse_bonus/, $(BPARSE)) \
 			$(addprefix exec_bonus/, $(BEXEC))
@@ -40,11 +39,9 @@ MLX			= $(MLX_PATH)$(MLX_NAME)
 ifdef WITH_BONUS
 	OBJ_SWITCH = $(BOBJS)
 	REMOVE = $(OBJS)
-	NAME = cub3d_bonus
 else
 	OBJ_SWITCH = $(OBJS)
 	REMOVE = $(BOBJS)
-	NAME = cub3d
 endif
 
 all: $(NAME)
@@ -86,7 +83,6 @@ fclean: clean
 	@make fclean -C libft
 	$(info fcleaning game...)
 	@$(RM) $(NAME)
-	@$(RM) $(BNAME)
 
 re:
 	@make fclean
