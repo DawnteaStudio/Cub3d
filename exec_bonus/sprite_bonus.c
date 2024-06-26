@@ -3,21 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:51:13 by parksewon         #+#    #+#             */
-/*   Updated: 2024/06/25 21:17:37 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/06/26 15:01:37 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d_bonus.h"
 
-void	init_sprite(t_play *play)
+int	check_sprite(t_play *play)
 {
-	play->door.wall_dist = 0;
-	play->door.line_h = 0;
-	play->door.draw_start = 0;
-	play->door.draw_end = 0;
+	if (play->map.field[play->map.start_y][play->map.start_x] == '1')
+	{
+		play->ray.is_door = FALSE;
+		return (TRUE);
+	}
+	else if (play->map.field[play->map.start_y][play->map.start_x] == 'D')
+	{
+		play->ray.is_door = TRUE;
+		return (TRUE);
+	}
+	return FALSE;
+}
+
+void	calc_sprite_ray(t_play *play)
+{
+	while (TRUE)
+	{
+		if (play->ray.size_x < play->ray.size_y)
+		{
+			play->ray.size_x += play->ray.delta_x;
+			play->map.start_x += play->player.step_x;
+			play->wall.collision_wall = WALL_X;
+		}
+		else
+		{
+			play->ray.size_y += play->ray.delta_y;
+			play->map.start_y += play->player.step_y;
+			play->wall.collision_wall = WALL_Y;
+		}
+		if (check_sprite(play) == TRUE)
+			break ;
+	}
+	if (play->wall.collision_wall == WALL_X)
+		play->wall.wall_dist = (play->map.start_x - play->player.x + \
+		(double)(1 - play->player.step_x) / 2) / play->ray.ray_x;
+	else
+		play->wall.wall_dist = (play->map.start_y - play->player.y + \
+		(double)(1 - play->player.step_y) / 2) / play->ray.ray_y;
+}
+
+void	render_sprite(t_play *play)
+{
+	int	x;
+
+	x = 0;
+	while (x < play->win_w)
+	{
+		ray_setting(play, x);
+		calc_size_dist_ray(play);
+		calc_sprite_ray(play);
+		calc_draw_height(play);
+		calc_hit_point_texture(play, x);
+		x++;
+	}
+	render_wall(play);
 }
 
 void	get_sprite(t_play *play, char *path)

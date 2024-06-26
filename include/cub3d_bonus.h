@@ -6,12 +6,12 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 13:35:05 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:03:05 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -103,10 +103,6 @@ typedef struct s_door
 	int		endian;
 	int		width;
 	int		height;
-	double	wall_dist;
-	int		line_h;
-	int		draw_start;
-	int		draw_end;
 }	t_door;
 
 typedef struct s_image
@@ -311,6 +307,7 @@ void	event_mouse(t_play *play);
 
 //sprite
 void	change_sprite(t_play *play);
-void	init_sprite(t_play *play);
+void	render_sprite(t_play *play);
+void	calc_sprite_ray(t_play *play);
 
 #endif

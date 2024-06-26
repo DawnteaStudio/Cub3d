@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:49:17 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 14:59:23 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:54:56 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	calc_ray_hit(t_play *play)
 			play->wall.collision_wall = WALL_Y;
 		}
 		if (play->map.field[play->map.start_y][play->map.start_x] == '1')
+		{
+			play->ray.is_door = FALSE;
 			break ;
+		}
 	}
 	if (play->wall.collision_wall == WALL_X)
 		play->wall.wall_dist = (play->map.start_x - play->player.x + \
@@ -121,8 +124,12 @@ void	calc_hit_point_texture(t_play *play, int x)
 	{
 		play->wall.texture_y = (int)play->wall.texture_p & (TEXTURE - 1);
 		play->wall.texture_p += play->wall.step;
-		play->screen[i][x] = play->images[play->wall.index].image[TEXTURE * \
-		play->wall.texture_y + play->wall.texture_x];
+		if (play->ray.is_door == FALSE)
+			play->screen[i][x] = play->images[play->wall.index].image[TEXTURE * \
+			play->wall.texture_y + play->wall.texture_x];
+		else
+			play->screen[i][x] = play->door.image[TEXTURE * \
+			play->wall.texture_y + play->wall.texture_x];
 		i++;
 	}
 }
