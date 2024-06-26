@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 11:18:31 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 15:03:05 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:08:38 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # define TRUE 1
 # define FALSE 0
+# define CLOSE -1
 
 # define MINIMAP 0.1
 # define IMAGE_SIZE 64
@@ -98,6 +99,8 @@ typedef struct s_key
 typedef struct s_door
 {
 	int		*image;
+	int		*close;
+	int		*close_image;
 	int		bpp;
 	int		line_size;
 	int		endian;
@@ -309,5 +312,9 @@ void	event_mouse(t_play *play);
 void	change_sprite(t_play *play);
 void	render_sprite(t_play *play);
 void	calc_sprite_ray(t_play *play);
+void	get_sprite(t_play *play, char *path);
+
+//door
+void	click_door(t_play *play);
 
 #endif

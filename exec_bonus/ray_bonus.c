@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 19:49:17 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/26 14:54:56 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:14:08 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,7 @@ void	calc_ray_hit(t_play *play)
 			play->wall.collision_wall = WALL_Y;
 		}
 		if (play->map.field[play->map.start_y][play->map.start_x] == '1')
-		{
-			play->ray.is_door = FALSE;
 			break ;
-		}
 	}
 	if (play->wall.collision_wall == WALL_X)
 		play->wall.wall_dist = (play->map.start_x - play->player.x + \
@@ -86,11 +83,11 @@ void	calc_ray_hit(t_play *play)
 	else
 		play->wall.wall_dist = (play->map.start_y - play->player.y + \
 		(double)(1 - play->player.step_y) / 2) / play->ray.ray_y;
+	play->wall.line_h = (int)(play->win_h / play->wall.wall_dist);
 }
 
 void	calc_draw_height(t_play *play)
 {
-	play->wall.line_h = (int)(play->win_h / play->wall.wall_dist);
 	play->wall.draw_start = play->win_h / 2 - play->wall.line_h / 2;
 	if (play->wall.draw_start < 0)
 		play->wall.draw_start = 0;
@@ -104,6 +101,12 @@ void	calc_draw_height(t_play *play)
 		play->wall.wall_x = play->player.x + play->wall.wall_dist \
 		* play->ray.ray_x;
 	play->wall.wall_x -= floor(play->wall.wall_x);
+	play->wall.texture_x = (int)(play->wall.wall_x * TEXTURE);
+	if (play->wall.collision_wall == WALL_X && play->ray.ray_x < 0)
+		play->wall.texture_x = TEXTURE - play->wall.texture_x - 1;
+	if (play->wall.collision_wall == WALL_Y && play->ray.ray_y > 0)
+		play->wall.texture_x = TEXTURE - play->wall.texture_x - 1;
+	play->wall.step = (double)TEXTURE / (double)play->wall.line_h;
 }
 
 void	calc_hit_point_texture(t_play *play, int x)
@@ -112,12 +115,6 @@ void	calc_hit_point_texture(t_play *play, int x)
 
 	check_texture_index(play);
 	i = play->wall.draw_start;
-	play->wall.texture_x = (int)(play->wall.wall_x * TEXTURE);
-	if (play->wall.collision_wall == WALL_X && play->ray.ray_x < 0)
-		play->wall.texture_x = TEXTURE - play->wall.texture_x - 1;
-	if (play->wall.collision_wall == WALL_Y && play->ray.ray_y > 0)
-		play->wall.texture_x = TEXTURE - play->wall.texture_x - 1;
-	play->wall.step = (double)TEXTURE / (double)play->wall.line_h;
 	play->wall.texture_p = (i - (int)play->win_h / 2 \
 	+ (int)play->wall.line_h / 2) * play->wall.step;
 	while (i < play->wall.draw_end)
@@ -127,8 +124,11 @@ void	calc_hit_point_texture(t_play *play, int x)
 		if (play->ray.is_door == FALSE)
 			play->screen[i][x] = play->images[play->wall.index].image[TEXTURE * \
 			play->wall.texture_y + play->wall.texture_x];
-		else
+		else if (play->ray.is_door == TRUE)
 			play->screen[i][x] = play->door.image[TEXTURE * \
+			play->wall.texture_y + play->wall.texture_x];
+		else if (play->ray.is_door == CLOSE)
+			play->screen[i][x] = play->door.close[TEXTURE * \
 			play->wall.texture_y + play->wall.texture_x];
 		i++;
 	}

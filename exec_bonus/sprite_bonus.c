@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/24 23:51:13 by parksewon         #+#    #+#             */
-/*   Updated: 2024/06/26 15:01:37 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:58:25 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ int	check_sprite(t_play *play)
 		play->ray.is_door = TRUE;
 		return (TRUE);
 	}
-	return FALSE;
+	else if (play->map.field[play->map.start_y][play->map.start_x] == 'd')
+	{
+		play->ray.is_door = CLOSE;
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 void	calc_sprite_ray(t_play *play)
@@ -52,6 +57,7 @@ void	calc_sprite_ray(t_play *play)
 	else
 		play->wall.wall_dist = (play->map.start_y - play->player.y + \
 		(double)(1 - play->player.step_y) / 2) / play->ray.ray_y;
+	play->wall.line_h = (int)(play->win_h / play->wall.wall_dist);
 }
 
 void	render_sprite(t_play *play)

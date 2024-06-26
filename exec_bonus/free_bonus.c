@@ -6,7 +6,7 @@
 /*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 19:26:25 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/23 14:59:03 by sewopark         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:13:35 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	exit_game(t_play *play)
 		mlx_destroy_image(play->mlx, play->map.image);
 	if (play->win)
 		mlx_destroy_window(play->mlx, play->win);
+	free(play->door.close);
 	exit(0);
 	return (0);
 }
