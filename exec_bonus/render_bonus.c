@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: parksewon <parksewon@student.42.fr>        +#+  +:+       +#+        */
+/*   By: sewopark <sewopark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 18:42:21 by sewopark          #+#    #+#             */
-/*   Updated: 2024/06/25 21:07:30 by parksewon        ###   ########.fr       */
+/*   Updated: 2024/06/26 14:20:59 by sewopark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	render_wall(t_play *play)
 		j = 0;
 		while (j < play->win_w)
 		{
-			play->map.data[height] = play->screen[i][j];
+			if (play->screen[i][j] != 0xfa0000)
+				play->map.data[height] = play->screen[i][j];
 			j++;
 			height++;
 		}
