@@ -6,11 +6,11 @@
 #    By: erho <erho@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/23 10:58:30 by sewopark          #+#    #+#              #
-#    Updated: 2024/06/28 16:09:38 by erho             ###   ########.fr        #
+#    Updated: 2024/06/28 21:08:23 by erho             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cub3d
+NAME	= cub3D
 INCLUDE	= include/
 CC		= cc
 RM		= rm -f
